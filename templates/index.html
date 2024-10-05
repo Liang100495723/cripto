@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+
+<head>
+  <title>Sigue a Papá Noel</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="¡La página que te ayuda prepararte para Navidad!">
+  <meta name="keywords" content="Papá Noel, Navidad">
+  <meta name="author" content="Victoria Guzmán Clemente and Konstantin Rannev">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+
+
+<body>
+
+  <header>
+    <!-- Cada enlace apunta a una sección dentro del main -->
+    <nav>
+      <a href="#SigueAPapaNoel">Home</a>
+      <a href=#PapaNoel>Papá Noel</a>
+      <a href=#LasCartas>Las Cartas</a>
+      <a href=#EnviaTuCarta>Envía tu carta</a>
+      <a href=#Juega>¡Juega!</a>
+    </nav>
+    <!-- Estos botones permiten gestionar cuenta -->
+    <div id="account">
+      <button class="enlarge">Inicia sesión</button>
+      <button class="enlarge" id="registerBtn">Regístrate</button>
+    </div>
+    <div id="registerPopup" class="popup"></div>
+    <script src="static/script.js"></script> <!-- External JavaScript -->
+  </header>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  <p>{{ message }}</p>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <!-- Esto merece un 10 y lo sabes -->
+  <div class="snowblock"></div>
+
+
+  <!-- Aquí va la pagina entera -->
+  <main>
+
+    <section id="SigueAPapaNoel">
+      <h1>Sigue a Papá Noel</h1>
+      <!-- Por ahora el tiempo es estático -->
+      <img class="drop-shadow enlarge" src=static/images/countdown3.png alt="Cuenta Atrás">
+      <!-- Tampóco tiene funcionalidad este botón -->
+      <button class="beautiful-button drop-shadow enlarge">Empezar</button>
+    </section>
+
+    <hr>
+
+
+    <section id="PapaNoel">
+      <h1>¿Quién es Papá Noel?</h1>
+      <div class="itempapanoel">
+        <img class="candy-cane-border drop-shadow enlarge" src=static/images/papanoel1.jpg alt="Foto de Papá Noel">
+        <p> Papá Noel es una figura mágica muy querida por los niños de todo el mundo. Vive en el Polo Norte, en una
+          casa rodeada de nieve y magia,
+          junto a sus fieles elfos, que lo ayudan a fabricar juguetes para todos los niños.
+          <br><br>
+          Tiene una barba blanca y espesa, y viste su clásico traje
+          rojo con detalles en blanco. Cada noche de Navidad, viaja en su trineo, tirado por renos voladores, para
+          llevar regalos a las casas de quienes
+          se han portado bien durante el año. Su reno líder, Rodolfo, lo guía con su brillante nariz roja.
+          <br><br>
+          Papá Noel es conocido por su generosidad y
+          su risa contagiosa, "¡Ho, ho, ho!", que llena de alegría cada rincón donde deja sus regalos. A pesar de su
+          apretada agenda, siempre encuentra
+          tiempo para leer las cartas que los niños le envían con sus deseos navideños.
+        </p>
+      </div>
+    </section>
+
+    <hr>
+
+
+    <section id="LasCartas">
+      <h1>Las Cartas</h1>
+      <div class=cartas>
+        <article class="carta candy-cane-border drop-shadow enlarge">
+          <img src=static/images/niña3.jpg alt="Foto de Sofía">
+          <h2>Sofía
+          </h2>
+          <h3>Buenos Aires, Argentina</h3>
+          <p>
+            Querido Papá Noel,<br><br>
+            Me llamo Sofía y tengo 7 años. Este año he sido muy buena, ayudé a mi hermano pequeño con sus tareas y a mi
+            mamá a cocinar.<br><br>
+            Me gustaría que me trajeras una muñeca que pueda hablar y caminar, y también un libro de cuentos para leer
+            en la noche. ¡Te prometo que dejaré galletas y leche para ti!
+            <br><br>
+            Con cariño,<br>
+            Sofía
+          </p>
+        </article>
+
+        <article class="carta candy-cane-border drop-shadow enlarge">
+          <img src=static/images/niño2.jpg alt="Foto de Lucas">
+          <h2>Lucas</h2>
+          <h3>Madrid, España</h3>
+          <p>
+            Hola Papá Noel, <br><br>
+            Soy Lucas y tengo 6 años. Este año me he portado bien en la escuela y he aprendido a andar en bicicleta sin
+            rueditas.<br><br>
+            Me gustaría que me trajeras un tren eléctrico con una vía muy larga. También quiero que mi perro Bruno tenga
+            una nueva cama, porque ya está muy viejita la que tiene.
+            <br><br>
+            Muchas gracias,<br>
+            Lucas
+          </p>
+        </article>
+
+        <article class="carta candy-cane-border drop-shadow enlarge">
+          <img src=static/images/niño1.jpg alt="Foto de Thiago">
+          <h2>Thiago</h2>
+          <h3>Sao Paulo, Brasil</h3>
+          <p>
+            Querido Papá Noel,<br><br>
+            Soy Thiago y vivo en Sao Paulo. Tengo 10 años y este año me esforcé mucho en la escuela.<br><br>
+            Me gustaría que me trajeras un robot de control remoto y también un libro de aventuras para leer en las
+            vacaciones. Si puedes, me gustaría pedir que todos los niños del mundo tengan una Navidad feliz, con comida
+            y regalos.
+            <br><br>
+            Con mucho cariño,<br>
+            Thiago
+          </p>
+        </article>
+
+        <article class="carta candy-cane-border drop-shadow enlarge">
+          <img src=static/images/niña2.jpg alt="Foto de Majo">
+          <h2>María José</h2>
+          <h3>Ciudad de México, México</h3>
+          <p>
+            Querido Papá Noel,<br><br>
+            Me llamo María José, pero todos me dicen Majo. Tengo 8 años y vivo en Ciudad de México. Este año traté de
+            ser muy buena, aunque a veces me cuesta no pelear con mi hermana.<br><br>
+            Para esta Navidad, me gustaría recibir un set de arte con muchos colores y pinceles para hacer pinturas
+            bonitas. También me gustaría pedirte que cuides mucho a mi familia.
+            <br><br>
+            Un abrazo,<br>
+            Majo
+          </p>
+        </article>
+
+        <article class="carta candy-cane-border drop-shadow enlarge">
+          <img src= static/images/niño3.jpg alt="Foto de Nicolás">
+          <h2>Nicolás</h2>
+          <h3>Lima, Perú</h3>
+          <p>
+            Querido Papá Noel,<br><br>
+            Soy Nicolás y tengo 9 años. Este año ayudé mucho en la casa y fui muy responsable con mis tareas.<br><br>
+            Me encantaría que me trajeras un balón de fútbol, porque el mío ya está roto, y una camiseta de mi equipo
+            favorito. También, si puedes, me gustaría que mi papá y mi mamá pasen más tiempo juntos en Navidad.
+            <br><br>
+            Gracias por todo,<br>
+            Nicolás
+          </p>
+        </article>
+
+        <article class="carta candy-cane-border drop-shadow enlarge">
+          <img src= static/images/niña1.jpg alt="Foto de Emily">
+          <h2>Emily</h2>
+          <h3>Toronto, Canadá</h3>
+          <p>
+            Hola Papá Noel,<br><br>
+            Me llamo Emily y tengo 6 años. Vivo en Toronto y me encanta la Navidad. Este año, me porté bien y aprendí a
+            nadar.<br><br>
+            Para esta Navidad, me gustaría pedirte una casa de muñecas con muebles pequeñitos, y también un rompecabezas
+            grande para hacer con mi abuela. ¡Espero que te gusten las galletas que haremos para ti!
+            <br><br>
+            Feliz Navidad,<br>
+            Emily
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <hr>
+
+
+    <section id="EnviaTuCarta">
+      <h1>Envía tu carta</h1>
+      <form id="formulario" class="candy-cane-border drop-shadow enlarge">
+
+        <div class="formitem">
+          <label for="nombre">Nombre</label><br>
+          <input type="text" id="nombre" name="nombre">
+        </div>
+
+
+        <div class="formitem">
+          <label for="email">Email</label><br>
+          <input type="text" id="email" name="email">
+        </div>
+
+
+
+        <div class="formitem">
+          <label for="ciudad">Ciudad</label><br>
+          <input type="text" id="ciudad" name="ciudad">
+        </div>
+
+
+
+        <div class="formitem">
+          <label for="país">País</label><br>
+          <input type="text" id="país" name="país">
+        </div>
+
+
+        <div class="formitem">
+          <label> Carta para Papá Noel</label><br>
+          <textarea>Querido Papá Noel,</textarea>
+        </div>
+      </form>
+
+      <!-- Este botón cumple la funcionalidad de un input type="submit" dentro de un formulario -->
+      <button class="beautiful-button drop-shadow enlarge" type="submit" form="formulario">Enviar</button>
+
+    </section>
+
+    <hr>
+
+
+    <section id="Juega">
+      <h1>¡Juega!</h1>
+
+      <!-- La manera en la que implementamos esto es usando Labels como los botones e integrando cada imagen con su propio botón radio (que está escondido) -->
+      <div class="juegos">
+        <div class="buttonsjuego itemjuego">
+          <label class="beautiful-button itemjuego drop-shadow enlarge" for="juego1">Juego 1</label>
+          <label class="beautiful-button itemjuego drop-shadow enlarge" for="juego2">Juego 2</label>
+          <label class="beautiful-button itemjuego drop-shadow enlarge" for="juego3">Juego 3</label>
+        </div>
+
+        <div class="itemjuego">
+          <input type="radio" id="juego1" name="alternarImagen">
+          <img class="candy-cane-border drop-shadow enlarge itemjuego" src=static/images/juego1.jpg alt="Juego 1">
+
+          <input type="radio" id="juego2" name="alternarImagen">
+          <img class="candy-cane-border drop-shadow enlarge itemjuego" src=static/images/juego2.png alt="Juego 2">
+
+          <input type="radio" id="juego3" name="alternarImagen">
+          <img class="candy-cane-border drop-shadow enlarge itemjuego" src=static/images/juego3.jpg alt="Juego 3">
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Aquí metímos unos enlaces placeholders -->
+    <footer>
+      <hr>
+      <h2>Follow us on social media:</h2>
+      <a
+        href="https://www.facebook.com/BoiamDallantonia/videos/rick-astley-never-gonna-give-you-up-official-music-video/2482391628734623/"><img
+          class="socialmedia enlarge" src="static/images/facebook.png" alt="Facebook"></a>
+      <a href="https://www.instagram.com/reels/audio/412752889547024/never-gonna-give-you-up/"><img
+          class="socialmedia enlarge" src="static/images/instagram.png" alt="Instagram"></a>
+      <a href="https://x.com/rickastley"><img class="socialmedia enlarge" src="static/images/twitter.png" alt="Twitter"></a>
+      <a href="https://youtu.be/dQw4w9WgXcQ"><img class="socialmedia enlarge" src="static/images/youtube.png"
+          alt="Youtube"></a><br>
+      <p>&copy; copyright reserved</p>
+    </footer>
+
+  </main>
+
+
+</body>
+
+
+</html>
