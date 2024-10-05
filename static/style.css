@@ -105,28 +105,75 @@ h1 {
   background-color: rgba(0,0,0,0.4);
 }
 
+/* MENU PARA REGISTRO */
 .popup-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
   position: relative;
+  width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .close-popup {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
-.close-popup:hover,
-.close-popup:focus {
-  color: black;
-  text-decoration: none;
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 600px) {
+  .popup-content {
+      width: 90%;
+  }
 }
 
 /* Flash message styles */

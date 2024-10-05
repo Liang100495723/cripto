@@ -4,16 +4,21 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 
 # MySQL Connection
-app.config['MYSQL_HOST'] = 'localhost'
+# la ruta de mysql si tienes
+# 1. windows:
+# app.config['MYSQL_HOST'] = 'localhost'
+# 2. linux:
+app.config['MYSQL_UNIX_SOCKET'] = '/opt/lampp/var/mysql/mysql.sock'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'flaskusers'
+app.config['MYSQL_DB'] = 'lab_criptografia'
 mysql = MySQL(app)
 
 # settings
 app.secret_key = 'mysecretkey'
 
 
+# web page
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -26,12 +31,12 @@ def register_form():
 @app.route('/register', methods = ['POST'])
 def register():
     if request.method == 'POST':
-        fullname = request.form['fullname']
-        phone = request.form['phone']
+        username = request.form['username']
+        password = request.form['password']
         email = request.form['email']
         cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO users (fullname, phone, email) VALUES (%s, %s, %s)',
-                    (fullname, phone, email))
+        cur.execute('INSERT INTO usuarios_registrados (username, password, email) VALUES (%s, %s, %s)',
+                    (username, password, email))
         mysql.connection.commit()
         flash("Usuario registrado correctamente")
         return jsonify(success=True, message="Usuario registrado correctamente")

@@ -1,11 +1,16 @@
-<div class = "popup-content">
-    <span class = "close-popup">&times;</span>
-    <form id = "registerform" action="{{ url_for('register') }}" method="POST">
-        <input type="text" name="fullname" placeholder="Fullname">
-        <input type="text" name="phone" placeholder="Phone">
-        <input type="text" name="email" placeholder="Email">
-        <button type="submit">
-            Registrarse
-        </button>
+<div class="popup-content">
+    <span class="close-popup">&times;</span>
+    <form id="registerform" action="{{ url_for('register') }}" method="POST" class="form-container">
+        <h2>Regístrate</h2>
+        <div class="input-group">
+            <input type="text" name="username" placeholder="Nombre de usuario" required>
+        </div>
+        <div class="input-group">
+            <input type="password" name="password" placeholder="Contraseña" required>
+        </div>
+        <div class="input-group">
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+        </div>
+        <button type="submit" class="btn">Registrarse</button>
     </form>
 </div>
