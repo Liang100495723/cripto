@@ -54,9 +54,34 @@ def register():
 
     return jsonify(success=False, message="Error en el registro")
 
-@app.route('/login')
+
+# Route for rendering the login form (GET)
+@app.route('/login_form')
+def login_form():
+    return render_template('iniciosesion.html')
+
+@app.route('/login', methods=['POST'])
 def login():
-    return 'Login'
+    if request.method == 'POST':
+        username_or_email = request.form['username or email']
+        password = request.form['password']
+
+        json_file = 'usuarios_registrados.json'
+
+        if os.path.exists(json_file):
+            # Leer el archivo JSON
+            with open(json_file, 'r') as file:
+                users = json.load(file)
+
+            for user in users:
+                if (user['username'] == username_or_email or user['email'] == username_or_email) and user['password'] == password:
+                    flash("Inicio de sesión correcto")
+                    return jsonify(success=True, message="Sesión iniciada correctamente")
+
+            flash("Usuario o contraseña incorrectos")
+            return jsonify(success=False, message="Error en el inicio de sesión")
+        return jsonify(success=False, message="Error en el inicio de sesión")
+        
 
 @app.route('/edit')
 def edit_user():
