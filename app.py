@@ -1,18 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-from flask_mysqldb import MySQL
+import json
+from flask import Flask, render_template, request, flash, jsonify
+import os
 
 app = Flask(__name__)
-
-# MySQL Connection
-# la ruta de mysql si tienes
-# 1. windows:
-# app.config['MYSQL_HOST'] = 'localhost'
-# 2. linux:
-app.config['MYSQL_UNIX_SOCKET'] = '/opt/lampp/var/mysql/mysql.sock'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'lab_criptografia'
-mysql = MySQL(app)
 
 # settings
 app.secret_key = 'mysecretkey'
@@ -28,18 +18,40 @@ def index():
 def register_form():
     return render_template('registro.html')
 
-@app.route('/register', methods = ['POST'])
+@app.route('/register', methods=['POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
-        cur = mysql.connection.cursor()
-        cur.execute('INSERT INTO usuarios_registrados (username, password, email) VALUES (%s, %s, %s)',
-                    (username, password, email))
-        mysql.connection.commit()
+
+        # Guardar en un archivo JSON local
+        user_data = {
+            'username': username,
+            'password': password,
+            'email': email
+        }
+
+        # Nombre del archivo JSON local
+        json_file = 'usuarios_registrados.json'
+
+        # Verificar si el archivo existe
+        if os.path.exists(json_file):
+            # Si existe, leer el archivo y agregar el nuevo usuario
+            with open(json_file, 'r') as file:
+                data = json.load(file)
+                data.append(user_data)
+        else:
+            # Si no existe, crear una nueva lista con el primer usuario
+            data = [user_data]
+
+        # Guardar el archivo actualizado
+        with open(json_file, 'w') as file:
+            json.dump(data, file, indent=4)
+
         flash("Usuario registrado correctamente")
         return jsonify(success=True, message="Usuario registrado correctamente")
+
     return jsonify(success=False, message="Error en el registro")
 
 @app.route('/login')
@@ -55,4 +67,4 @@ def delete_user():
     return 'Delete User'
 
 if __name__ == '__main__':
-    app.run(port = 3000, debug = True)
+    app.run(port=3000, debug=True)
