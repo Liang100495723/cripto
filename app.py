@@ -77,7 +77,7 @@ def login():
                 if (user['username'] == username_or_email or user['email'] == username_or_email) and user['password'] == password:
                     flash("Inicio de sesión correcto")
                     return jsonify(success=True, message="Sesión iniciada correctamente")
-
+            
             flash("Usuario o contraseña incorrectos")
             return jsonify(success=False, message="Error en el inicio de sesión")
         return jsonify(success=False, message="Error en el inicio de sesión")

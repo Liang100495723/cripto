@@ -54,6 +54,7 @@ function loadFormRegister() {
                         flashMessage.classList.add("flash-message");
                         document.querySelector(".popup-content").appendChild(flashMessage);
                     }
+                    
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -113,6 +114,21 @@ function loadFormLogin() {
                         flashMessage.classList.add("flash-message");
                         document.querySelector(".popup-content").appendChild(flashMessage);
                     }
+                    else {
+                        // Clear any previous flash messages
+                        const existingFlashMessage = document.querySelector(".flash-message");
+                        if (existingFlashMessage) {
+                            existingFlashMessage.remove();
+                        }
+
+                        // Display flash message inside the popup
+                        const flashMessage = document.createElement("p");
+                        flashMessage.textContent = data.message;
+                        flashMessage.classList.add("flash-message");
+                        document.querySelector(".popup-content").appendChild(flashMessage);
+
+                    }
+    
                 })
                 .catch(error => {
                     console.error('Error:', error);
