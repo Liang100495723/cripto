@@ -25,6 +25,26 @@ def register():
         password = request.form['password']
         email = request.form['email']
 
+        mayusc = False
+        number = False
+        special = False
+
+        if len(password) < 8:
+            flash("La contraseña debe tener al menos 8 caracteres")
+            return jsonify(success=False, message="La contraseña debe tener al menos 8 caracteres")
+        for char in password:
+            if char.isupper():
+                mayusc = True
+            elif char.isdigit():
+                number = True
+            elif not char.isalnum():
+                special = True
+        
+        if not mayusc or not number or not special:
+            flash("La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
+            return jsonify(success=False, message="La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
+        
+
         # Guardar en un archivo JSON local
         user_data = {
             'username': username,

@@ -8,5 +8,10 @@
         "username": "prueba",
         "password": "Hola123",
         "email": "prueba@gmail.com"
+    },
+    {
+        "username": "contrase\u00f1arobustaprueba",
+        "password": "Holaaaaaaa123!",
+        "email": "prueba@gmail.com"
     }
 ]
