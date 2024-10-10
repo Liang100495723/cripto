@@ -2,3 +2,4 @@
 [] Cuando se inicia sesión, se crea una opción para ver cartas (Podría sustituir al botón de registrarse?)
 [] Crear una forma de salir del inicio de sesión
 [X] Obligar a que las contraseñas sean robustas
+[X] No puede haber dos cuentas con el mismo usuario/email 

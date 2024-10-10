@@ -44,6 +44,21 @@ def register():
             flash("La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
             return jsonify(success=False, message="La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
         
+        json_file = 'usuarios_registrados.json'
+
+        if os.path.exists(json_file):
+            # Leer el archivo JSON
+            with open(json_file, 'r') as file:
+                users = json.load(file)
+
+            for user in users:
+                if user['username'] == username:
+                    flash("El nombre de usuario ya existe")
+                    return jsonify(success=False, message="El nombre de usuario ya existe")
+                if user['email'] == email:
+                    flash("El correo electrónico ya está registrado")
+                    return jsonify(success=False, message="El correo electrónico ya está registrado")
+
 
         # Guardar en un archivo JSON local
         user_data = {
