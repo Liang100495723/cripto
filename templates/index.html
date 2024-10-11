@@ -27,12 +27,18 @@
     </nav>
     <!-- Estos botones permiten gestionar cuenta -->
     <div id="account">
-      <button class="enlarge" id="loginBtn">Inicia sesión</button>
-      <button class="enlarge" id="registerBtn">Regístrate</button>
+      {% if 'username' in session %}
+        <p>Hola, {{ session['username'] }}!</p>
+        <button class="enlarge" id="logoutBtn" onclick="window.location.href='/logout';">Cerrar sesión</button>
+      {% else %}
+        <button class="enlarge" id="loginBtn" onclick="showPopup('loginPopup')">Inicia sesión</button>
+        <button class="enlarge" id="registerBtn" onclick="window.location.href='/register_form';">Regístrate</button>
+      {% endif %}
     </div>
     <div id="registerPopup" class="popup"></div>
     <div id="loginPopup" class="popup"></div>
     <script src="static/script.js"></script> <!-- External JavaScript -->
+    
   </header>
 
   <!--{% with messages = get_flashed_messages() %}

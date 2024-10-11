@@ -153,6 +153,43 @@ function loadFormLogin() {
         });
 }
 
+// Button to see Password
+function togglePassword(fieldId) {
+    var passwordField = document.getElementById(fieldId);
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+    } else {
+        passwordField.type = "password";
+    }
+}
+
+// Función para mostrar el popup
+function showPopup(popupId) {
+    var popup = document.getElementById(popupId);
+    popup.style.display = 'block';
+}
+
+// Función para cerrar el popup
+document.addEventListener("DOMContentLoaded", function () {
+    var closeButtons = document.querySelectorAll('.close-popup');
+
+    closeButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var popup = this.closest('.popup-content');
+            popup.style.display = 'none';
+        });
+    });
+});
+
+
+function confirmLogout() {
+    var confirmAction = confirm("¿Estás seguro de que quieres cerrar sesión?");
+    if (confirmAction) {
+        window.location.href = '/logout';
+    }
+}
+
+
 // When the user clicks the "Regístrate" button, load and show the form
 registerBtn.onclick = function() {
     loadFormRegister();

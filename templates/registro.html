@@ -1,13 +1,17 @@
-<div class="popup-content">
+<div id="registerPopup" class="popup-content">
     <span class="close-popup">&times;</span>
     <form id="registerform" action="{{ url_for('register') }}" method="POST" class="form-container">
         <h2>Regístrate</h2>
         <div class="input-group">
             <input type="text" name="username" placeholder="Nombre de usuario" required>
         </div>
-        <div class="input-group">
-            <input type="password" name="password" placeholder="Contraseña" required>
+        <div class="input-group password-wrapper">
+            <input type="password" name="password" id="register-password" placeholder="Contraseña" required>
+            <label class="show-password">
+                <input type="checkbox" id="toggleRegisterPassword" onclick="togglePassword('register-password')"> Mostrar
+            </label>
         </div>
+        
         <div class="input-group">
             <input type="email" name="email" placeholder="Correo electrónico" required>
         </div>

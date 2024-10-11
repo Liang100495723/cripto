@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, request, flash, jsonify
+from flask import Flask, render_template, request, flash, jsonify, session, redirect, url_for
 import os
 
 app = Flask(__name__)
@@ -25,6 +25,7 @@ def register():
         password = request.form['password']
         email = request.form['email']
 
+        # Requisitos para la creación de la contraseña, aún NO se encripta nada
         mayusc = False
         number = False
         special = False
@@ -44,6 +45,7 @@ def register():
             flash("La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
             return jsonify(success=False, message="La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
         
+        # Archivo json 
         json_file = 'usuarios_registrados.json'
 
         if os.path.exists(json_file):
@@ -51,6 +53,7 @@ def register():
             with open(json_file, 'r') as file:
                 users = json.load(file)
 
+            # Si existe ya el usuario salta error:
             for user in users:
                 if user['username'] == username:
                     flash("El nombre de usuario ya existe")
@@ -66,9 +69,6 @@ def register():
             'password': password,
             'email': email
         }
-
-        # Nombre del archivo JSON local
-        json_file = 'usuarios_registrados.json'
 
         # Verificar si el archivo existe
         if os.path.exists(json_file):
@@ -98,9 +98,10 @@ def login_form():
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
-        username_or_email = request.form['username or email']
+        username_or_email = request.form['username_or_email']
         password = request.form['password']
 
+        # "Base de datos" donde tenemos registros
         json_file = 'usuarios_registrados.json'
 
         if os.path.exists(json_file):
@@ -110,13 +111,21 @@ def login():
 
             for user in users:
                 if (user['username'] == username_or_email or user['email'] == username_or_email) and user['password'] == password:
+                    # Guardamos el nombre de usuario en la sesión
+                    session['username'] = user['username']
                     flash("Inicio de sesión correcto")
                     return jsonify(success=True, message="Sesión iniciada correctamente")
             
             flash("Usuario o contraseña incorrectos")
             return jsonify(success=False, message="Error en el inicio de sesión")
         return jsonify(success=False, message="Error en el inicio de sesión")
-        
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)  # Elimina la sesión
+    flash("Has cerrado sesión correctamente")
+    return redirect(url_for('index'))
+
 
 @app.route('/edit')
 def edit_user():
