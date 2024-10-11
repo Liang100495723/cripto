@@ -504,7 +504,70 @@ nav {
     height: auto;
   }
 }
+/* Área del perfil del usuario */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem;
+  background-color: var(--tertiary-color); /* Usamos el color terciario para diferenciar el bloque */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+}
 
+.user-profile p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Asegúrate de que el botón de cerrar sesión esté bien alineado */
+#logoutBtn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#logoutBtn:hover {
+  background-color: #D9534F; /* Color más oscuro al pasar el mouse */
+}
+
+/* Estilos para los botones de iniciar sesión y registro */
+#loginBtn, #registerBtn {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#loginBtn:hover, #registerBtn:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Ajustes generales de la barra de cuenta */
+#account {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+  padding-right: 20px;
+}
 /* Aquí es donde pasa la magia...
 Lo que hacemos es encontrar el vecino de cada elemento de input del tipo radio y si no está elegido, se esconde la imagen */
 input[type=radio],

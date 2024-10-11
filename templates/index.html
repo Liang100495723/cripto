@@ -28,8 +28,11 @@
     <!-- Estos botones permiten gestionar cuenta -->
     <div id="account">
       {% if 'username' in session %}
-        <p>Hola, {{ session['username'] }}!</p>
-        <button class="enlarge" id="logoutBtn" onclick="window.location.href='/logout';">Cerrar sesión</button>
+        <div class="user-profile">
+          <img src="{{ session.get('avatar_url', 'static/images/fotoperfil.png') }}" alt="Avatar de {{ session['username'] }}" class="user-avatar">
+          <p>¡Hola, {{ session['username'] }}!</p>
+          <button class="enlarge" id="logoutBtn" onclick="window.location.href='/logout';">Cerrar sesión</button>
+        </div>
       {% else %}
         <button class="enlarge" id="loginBtn" onclick="showPopup('loginPopup')">Inicia sesión</button>
         <button class="enlarge" id="registerBtn" onclick="window.location.href='/register_form';">Regístrate</button>
