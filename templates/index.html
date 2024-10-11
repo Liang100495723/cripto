@@ -38,19 +38,20 @@
         <button class="enlarge" id="registerBtn" onclick="window.location.href='/register_form';">Regístrate</button>
       {% endif %}
     </div>
+    
     <div id="registerPopup" class="popup"></div>
     <div id="loginPopup" class="popup"></div>
-    <script src="static/script.js"></script> <!-- External JavaScript -->
     
+    <script src="static/script.js"></script> <!-- External JavaScript -->
   </header>
-
-  <!--{% with messages = get_flashed_messages() %}
+    
+  {% with messages = get_flashed_messages() %}
   {% if messages %}
   {% for message in messages %}
   <p>{{ message }}</p>
   {% endfor %}
   {% endif %}
-  {% endwith %}-->
+  {% endwith %}
   
   <!-- Esto merece un 10 y lo sabes -->
   <div class="snowblock"></div>

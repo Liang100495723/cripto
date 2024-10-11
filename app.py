@@ -101,7 +101,6 @@ def login():
         username_or_email = request.form['username_or_email']
         password = request.form['password']
 
-        # "Base de datos" donde tenemos registros
         json_file = 'usuarios_registrados.json'
 
         if os.path.exists(json_file):
@@ -111,14 +110,19 @@ def login():
 
             for user in users:
                 if (user['username'] == username_or_email or user['email'] == username_or_email) and user['password'] == password:
-                    # Guardamos el nombre de usuario en la sesión
+                    # Guardar el nombre de usuario en la sesión
                     session['username'] = user['username']
-                    flash("Inicio de sesión correcto")
-                    return jsonify(success=True, message="Sesión iniciada correctamente")
-            
-            flash("Usuario o contraseña incorrectos")
-            return jsonify(success=False, message="Error en el inicio de sesión")
-        return jsonify(success=False, message="Error en el inicio de sesión")
+                    flash("Inicio de sesión correcto", "success")
+                    
+                    # Redirigir a la página de inicio con la sesión activa
+                    return redirect(url_for('index'))
+
+            flash("Usuario o contraseña incorrectos", "error")
+            return redirect(url_for('login_form'))
+        else:
+            flash("Error al leer la base de datos de usuarios", "error")
+            return redirect(url_for('login_form'))
+
 
 @app.route('/logout')
 def logout():

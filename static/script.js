@@ -4,7 +4,7 @@ const registerBtn = document.getElementById("registerBtn");
 const loginBtn = document.getElementById("loginBtn");
 const loginPopup = document.getElementById("loginPopup");
 
-// Load the form from the Flask route
+// Load the form from the Flask route for Registration
 function loadFormRegister() {
     fetch('/register_form')
         .then(response => response.text())
@@ -24,49 +24,32 @@ function loadFormRegister() {
 
             // Close the pop-up if clicking outside the form
             window.onclick = function(event) {
-                if (event.target == registerPopup) {
+                if (event.target === registerPopup) {
                     registerPopup.style.display = "none";
                 }
             };
 
             // Handle form submission via AJAX
-            const form = document.getElementById("registerform");
+            const form = document.getElementById("loginform");
             form.onsubmit = function(event) {
-                event.preventDefault(); // Prevent default form submission
+                event.preventDefault(); // Evitar el comportamiento de envío por defecto
 
                 const formData = new FormData(form);
-                fetch('/register', {
+                fetch('/login', {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Clear any previous flash messages
-                        const existingFlashMessage = document.querySelector(".flash-message");
-                        if (existingFlashMessage) {
-                            existingFlashMessage.remove();
-                        }
-
-                        // Display flash message inside the popup
+                        // Si el inicio de sesión es exitoso
+                        window.location.href = '/';  // Redirigir a la página principal
+                    } else {
+                        // Mostrar mensaje de error en el popup
                         const flashMessage = document.createElement("p");
                         flashMessage.textContent = data.message;
                         flashMessage.classList.add("flash-message");
                         document.querySelector(".popup-content").appendChild(flashMessage);
-                    }
-                    else{
-                        // Clear any previous flash messages
-                        const existingFlashMessage = document.querySelector(".flash-message");
-                        if (existingFlashMessage) {
-                            existingFlashMessage.remove();
-                        }
-
-                        // Display flash message inside the popup
-                        const flashMessage = document.createElement("p");
-                        flashMessage.textContent = data.message;
-                        flashMessage.classList.add("flash-message");
-                        document.querySelector(".popup-content").appendChild(flashMessage);
-
                     }
                 })
                 .catch(error => {
@@ -79,11 +62,13 @@ function loadFormRegister() {
         });
 }
 
+// Load the login form from the Flask route
 function loadFormLogin() {
     fetch('/login_form')
         .then(response => response.text())
         .then(html => {
             loginPopup.innerHTML = html;
+
             // Get the close button after loading the form
             const closeBtn = document.querySelector(".close-popup");
 
@@ -97,7 +82,7 @@ function loadFormLogin() {
 
             // Close the pop-up if clicking outside the form
             window.onclick = function(event) {
-                if (event.target == registerPopup) {
+                if (event.target === loginPopup) {
                     loginPopup.style.display = "none";
                 }
             };
@@ -121,27 +106,22 @@ function loadFormLogin() {
                             existingFlashMessage.remove();
                         }
 
-                        // Display flash message inside the popup
-                        const flashMessage = document.createElement("p");
-                        flashMessage.textContent = data.message;
-                        flashMessage.classList.add("flash-message");
-                        document.querySelector(".popup-content").appendChild(flashMessage);
-                    }
-                    else {
-                        // Clear any previous flash messages
-                        const existingFlashMessage = document.querySelector(".flash-message");
-                        if (existingFlashMessage) {
-                            existingFlashMessage.remove();
-                        }
-
-                        // Display flash message inside the popup
+                        // Display success message, close popup, and redirect
                         const flashMessage = document.createElement("p");
                         flashMessage.textContent = data.message;
                         flashMessage.classList.add("flash-message");
                         document.querySelector(".popup-content").appendChild(flashMessage);
 
+                        // Close the popup and redirect to the homepage
+                        loginPopup.style.display = "none";
+                        window.location.href = '/';  // Redirect to homepage
+                    } else {
+                        // Display error message
+                        const flashMessage = document.createElement("p");
+                        flashMessage.textContent = data.message;
+                        flashMessage.classList.add("flash-message");
+                        document.querySelector(".popup-content").appendChild(flashMessage);
                     }
-    
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -181,7 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
 function confirmLogout() {
     var confirmAction = confirm("¿Estás seguro de que quieres cerrar sesión?");
     if (confirmAction) {
@@ -189,12 +168,12 @@ function confirmLogout() {
     }
 }
 
-
 // When the user clicks the "Regístrate" button, load and show the form
 registerBtn.onclick = function() {
     loadFormRegister();
 }
 
+// When the user clicks the "Inicia sesión" button, load and show the form
 loginBtn.onclick = function() {
     loadFormLogin();
 }

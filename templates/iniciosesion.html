@@ -2,18 +2,15 @@
     <span class="close-popup">&times;</span>
     <form id="loginform" action="{{ url_for('login') }}" method="POST" class="form-container">
         <h2>Inicia Sesión</h2>
-        
         <div class="input-group">
             <input type="text" name="username_or_email" placeholder="Nombre de usuario o email" required>
         </div>
-        
         <div class="input-group password-wrapper">
             <input type="password" name="password" id="login-password" placeholder="Contraseña" required>
             <label class="show-password">
                 <input type="checkbox" id="toggleLoginPassword" onclick="togglePassword('login-password')"> Mostrar
             </label>
         </div>
-        
         <button type="submit" class="btn">Iniciar Sesión</button>
-    </form>
+    </form>    
 </div>
