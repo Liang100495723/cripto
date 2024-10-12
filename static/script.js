@@ -12,7 +12,7 @@ function loadFormRegister() {
             registerPopup.innerHTML = html;
 
             // Get the close button after loading the form
-            const closeBtn = document.querySelector(".close-popup");
+            const closeBtn = registerPopup.querySelector(".close-popup");
 
             // Show the popup
             registerPopup.style.display = "block";
@@ -30,12 +30,12 @@ function loadFormRegister() {
             };
 
             // Handle form submission via AJAX
-            const form = document.getElementById("loginform");
+            const form = document.getElementById("registerform");
             form.onsubmit = function(event) {
                 event.preventDefault(); // Evitar el comportamiento de envío por defecto
 
                 const formData = new FormData(form);
-                fetch('/login', {
+                fetch('/register', {
                     method: 'POST',
                     body: formData
                 })
@@ -49,7 +49,7 @@ function loadFormRegister() {
                         const flashMessage = document.createElement("p");
                         flashMessage.textContent = data.message;
                         flashMessage.classList.add("flash-message");
-                        document.querySelector(".popup-content").appendChild(flashMessage);
+                        registerPopup.querySelector(".popup-content").appendChild(flashMessage);
                     }
                 })
                 .catch(error => {
@@ -70,7 +70,7 @@ function loadFormLogin() {
             loginPopup.innerHTML = html;
 
             // Get the close button after loading the form
-            const closeBtn = document.querySelector(".close-popup");
+            const closeBtn = loginPopup.querySelector(".close-popup");
 
             // Show the popup
             loginPopup.style.display = "block";
@@ -110,7 +110,7 @@ function loadFormLogin() {
                         const flashMessage = document.createElement("p");
                         flashMessage.textContent = data.message;
                         flashMessage.classList.add("flash-message");
-                        document.querySelector(".popup-content").appendChild(flashMessage);
+                        loginPopup.querySelector(".popup-content").appendChild(flashMessage);
 
                         // Close the popup and redirect to the homepage
                         loginPopup.style.display = "none";
