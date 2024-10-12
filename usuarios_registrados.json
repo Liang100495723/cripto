@@ -1,7 +1,8 @@
 [
     {
         "username": "usuario1",
-        "password": "A1bc@eeee",
-        "email": "www.1159068228@gmail.com"
+        "email": "www.1159068228@gmail.com",
+        "password": "{\"ciphertext\": \"rcQAlLxryVN+\", \"nonce\": \"NpNxEhKMS093ffJFJVjoqA==\", \"tag\": \"VE3rlUaNgzpH1MMA9294Cw==\"}",
+        "aes_key": "0LbCwRA+ZaHr4MirMVvjW1fKtOWgb5LzqiMN8Lx0B24="
     }
 ]

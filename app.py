@@ -1,12 +1,27 @@
 import json
 from flask import Flask, render_template, request, flash, jsonify, session, redirect, url_for
+from crypto_utils import generate_aes_key, encrypt_aes, decrypt_aes
 import os
+import base64
 
 app = Flask(__name__)
 
 # settings
 app.secret_key = 'mysecretkey'
 
+# Ruta donde se guardará la clave AES
+AES_KEY_FILE = 'aes_key.key'
+
+# Verificar si ya existe la clave AES, sino generarla
+if not os.path.exists(AES_KEY_FILE):
+    aes_key = generate_aes_key()  # Generar la clave AES
+    # Guardar la clave AES en un archivo seguro
+    with open(AES_KEY_FILE, 'wb') as key_file:
+        key_file.write(aes_key)
+else:
+    # Si ya existe, cargar la clave AES del archivo
+    with open(AES_KEY_FILE, 'rb') as key_file:
+        aes_key = key_file.read()
 
 # web page
 @app.route('/')
@@ -25,69 +40,37 @@ def register():
         password = request.form['password']
         email = request.form['email']
 
-        # Requisitos para la creación de la contraseña, aún NO se encripta nada
-        mayusc = False
-        number = False
-        special = False
-
-        if len(password) < 8:
-            flash("La contraseña debe tener al menos 8 caracteres")
-            return jsonify(success=False, message="La contraseña debe tener al menos 8 caracteres")
-        for char in password:
-            if char.isupper():
-                mayusc = True
-            elif char.isdigit():
-                number = True
-            elif not char.isalnum():
-                special = True
+        # Validación de la contraseña (mayúsculas, números, caracteres especiales)
+        mayusc = any(char.isupper() for char in password)
+        number = any(char.isdigit() for char in password)
+        special = any(not char.isalnum() for char in password)
         
-        if not mayusc or not number or not special:
-            flash("La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
-            return jsonify(success=False, message="La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
+        if len(password) < 8 or not mayusc or not number or not special:
+            return jsonify(success=False, message="La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial")
         
-        # Archivo json 
-        json_file = 'usuarios_registrados.json'
+        # Generar la clave AES y encriptar la contraseña
+        aes_key = generate_aes_key()  # Genera una clave AES única por usuario
+        encrypted_password = encrypt_aes(aes_key, password)  # Encriptar la contraseña
 
-        if os.path.exists(json_file):
-            # Leer el archivo JSON
-            with open(json_file, 'r') as file:
-                users = json.load(file)
-
-            # Si existe ya el usuario salta error:
-            for user in users:
-                if user['username'] == username:
-                    flash("El nombre de usuario ya existe")
-                    return jsonify(success=False, message="El nombre de usuario ya existe")
-                if user['email'] == email:
-                    flash("El correo electrónico ya está registrado")
-                    return jsonify(success=False, message="El correo electrónico ya está registrado")
-
-
-        # Guardar en un archivo JSON local
         user_data = {
             'username': username,
-            'password': password,
-            'email': email
+            'email': email,
+            'password': encrypted_password,
+            'aes_key': base64.b64encode(aes_key).decode('utf-8')  # Guardar la clave AES en formato base64
         }
 
-        # Verificar si el archivo existe
+        json_file = 'usuarios_registrados.json'
         if os.path.exists(json_file):
-            # Si existe, leer el archivo y agregar el nuevo usuario
             with open(json_file, 'r') as file:
-                data = json.load(file)
-                data.append(user_data)
+                users = json.load(file)
+                users.append(user_data)
         else:
-            # Si no existe, crear una nueva lista con el primer usuario
-            data = [user_data]
+            users = [user_data]
 
-        # Guardar el archivo actualizado
         with open(json_file, 'w') as file:
-            json.dump(data, file, indent=4)
+            json.dump(users, file, indent=4)
 
-        flash("Usuario registrado correctamente")
         return jsonify(success=True, message="Usuario registrado correctamente")
-
-    return jsonify(success=False, message="Error en el registro")
 
 
 # Route for rendering the login form (GET)
@@ -104,18 +87,34 @@ def login():
         json_file = 'usuarios_registrados.json'
 
         if os.path.exists(json_file):
-            # Leer el archivo JSON
             with open(json_file, 'r') as file:
                 users = json.load(file)
 
             for user in users:
-                if (user['username'] == username_or_email or user['email'] == username_or_email) and user['password'] == password:
-                    # Guardar el nombre de usuario en la sesión
-                    session['username'] = user['username']
-                    flash("Inicio de sesión correcto", "success")
-                    
-                    # Redirigir a la página de inicio con la sesión activa
-                    return redirect(url_for('index'))
+                if (user['username'] == username_or_email or user['email'] == username_or_email):
+                    encrypted_password = user.get('password')
+                    stored_aes_key = user.get('aes_key')
+
+                    if not encrypted_password or not stored_aes_key:
+                        flash("Error: No se encontró la contraseña o clave AES encriptada", "error")
+                        return redirect(url_for('login_form'))
+
+                    try:
+                        # Decodificar la clave AES desde base64
+                        aes_key = base64.b64decode(stored_aes_key)
+                        decrypted_password = decrypt_aes(aes_key, encrypted_password)  # Desencriptar la contraseña
+
+                        if decrypted_password == password:
+                            session['username'] = user['username']
+                            flash("Inicio de sesión correcto", "success")
+                            return redirect(url_for('index'))
+                        else:
+                            flash("Contraseña incorrecta", "error")
+                            return redirect(url_for('login_form'))
+
+                    except Exception as e:
+                        flash(f"Error al desencriptar la contraseña: {str(e)}", "error")
+                        return redirect(url_for('login_form'))
 
             flash("Usuario o contraseña incorrectos", "error")
             return redirect(url_for('login_form'))
@@ -124,12 +123,12 @@ def login():
             return redirect(url_for('login_form'))
 
 
+
 @app.route('/logout')
 def logout():
-    session.pop('username', None)  # Elimina la sesión
+    session.pop('username', None)  # Eliminar la sesión
     flash("Has cerrado sesión correctamente")
     return redirect(url_for('index'))
-
 
 @app.route('/edit')
 def edit_user():
@@ -141,3 +140,4 @@ def delete_user():
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
+
