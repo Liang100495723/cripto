@@ -1,6 +1,12 @@
 // After a successful login, update the welcome message and show the logout button
 function updateWelcomeMessage(username, avatarUrl) {
+    console.log("Actualizando mensaje de bienvenida para:", username);
     const accountDiv = document.getElementById("account");
+
+    if (!accountDiv) {
+        console.error("No se encuentra el div con el ID 'account'");
+        return;
+    }
 
     // Create the user profile elements
     const userProfile = document.createElement("div");
@@ -140,11 +146,6 @@ function loadFormLogin() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Clear any previous flash messages
-                        const existingFlashMessage = document.querySelector(".flash-message");
-                        if (existingFlashMessage) {
-                            existingFlashMessage.remove();
-                        }
 
                         // Display success message, close popup, and update welcome message
                         updateWelcomeMessage(data.username, data.avatar_url);

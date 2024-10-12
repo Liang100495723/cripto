@@ -108,21 +108,20 @@ def login():
             with open(json_file, 'r') as file:
                 users = json.load(file)
 
+            # Validar usuario o email con la contraseña
             for user in users:
-                if (user['username'] == username_or_email or user['email'] == username_or_email) and user[
-                    'password'] == password:
+                if (user['username'] == username_or_email or user['email'] == username_or_email) and user['password'] == password:
                     # Guardar el nombre de usuario en la sesión
                     session['username'] = user['username']
                     flash("Inicio de sesión correcto", "success")
 
-                    # Redirigir a la página de inicio con la sesión activa
-                    return redirect(url_for('index'))
+                    # Return JSON success response for AJAX
+                    return jsonify(success=True, username=user['username'], avatar_url=None)  # Assuming no avatar for now
 
-            flash("Usuario o contraseña incorrectos", "error")
-            return redirect(url_for('login_form'))
+            # Si no coincide el usuario/email o contraseña
+            return jsonify(success=False, message="Usuario o contraseña incorrectos")
         else:
-            flash("Error al leer la base de datos de usuarios", "error")
-            return redirect(url_for('login_form'))
+            return jsonify(success=False, message="Error al leer la base de datos de usuarios")
 
 
 @app.route('/logout')
@@ -130,23 +129,6 @@ def logout():
     session.pop('username', None)  # Elimina la sesión
     flash("Has cerrado sesión correctamente")
     return redirect(url_for('index'))
-
-
-@app.route('/edit')
-def edit_user():
-    return 'Edit User'
-
-
-@app.route('/delete')
-def delete_user():
-    return 'Delete User'
-
-def login():
-    # Lógica de autenticación
-    if login_exitoso:
-        return jsonify(success=True, username=session['username'], avatar_url=session.get('avatar_url'))
-    else:
-        return jsonify(success=False, message="Usuario o contraseña incorrectos.")
 
 
 if __name__ == '__main__':
