@@ -1,3 +1,38 @@
+// After a successful login, update the welcome message and show the logout button
+function updateWelcomeMessage(username, avatarUrl) {
+    const accountDiv = document.getElementById("account");
+
+    // Create the user profile elements
+    const userProfile = document.createElement("div");
+    userProfile.classList.add("user-profile");
+
+    const avatarImg = document.createElement("img");
+    avatarImg.src = avatarUrl || 'static/images/fotoperfil.png';  // Default avatar if none provided
+    avatarImg.alt = "Avatar de " + username;
+    avatarImg.classList.add("user-avatar");
+
+    const welcomeMessage = document.createElement("p");
+    welcomeMessage.id = "welcome-message";
+    welcomeMessage.textContent = "¡Hola, " + username + "!";
+
+    const logoutBtn = document.createElement("button");
+    logoutBtn.classList.add("enlarge");
+    logoutBtn.id = "logoutBtn";
+    logoutBtn.textContent = "Cerrar sesión";
+    logoutBtn.onclick = function() {
+        window.location.href = '/logout';
+    };
+
+    // Append the new elements to the account div
+    userProfile.appendChild(avatarImg);
+    userProfile.appendChild(welcomeMessage);
+    userProfile.appendChild(logoutBtn);
+
+    // Clear the current content of the account div and insert the new content
+    accountDiv.innerHTML = '';
+    accountDiv.appendChild(userProfile);
+}
+
 // Get the pop-up and the register button
 const registerPopup = document.getElementById("registerPopup");
 const registerBtn = document.getElementById("registerBtn");
@@ -11,13 +46,13 @@ function loadFormRegister() {
         .then(html => {
             registerPopup.innerHTML = html;
 
-            // Get the close button after loading the form
+            // Botton de X
             const closeBtn = registerPopup.querySelector(".close-popup");
 
-            // Show the popup
+            // Mostrar el popup
             registerPopup.style.display = "block";
 
-            // Close the pop-up when the "x" is clicked
+            // Cerrar el popup
             closeBtn.onclick = function() {
                 registerPopup.style.display = "none";
             };
@@ -42,10 +77,14 @@ function loadFormRegister() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Si el inicio de sesión es exitoso
-                        window.location.href = '/';  // Redirigir a la página principal
+                        // If registration is successful, show the welcome message
+                        updateWelcomeMessage(data.username, data.avatarUrl);
+
+                        // Close the registration popup
+                        registerPopup.style.display = "none";
+
                     } else {
-                        // Mostrar mensaje de error en el popup
+                        // Display error message in the popup
                         const flashMessage = document.createElement("p");
                         flashMessage.textContent = data.message;
                         flashMessage.classList.add("flash-message");
@@ -61,6 +100,7 @@ function loadFormRegister() {
             console.error('Error loading the form:', error);
         });
 }
+
 
 // Load the login form from the Flask route
 function loadFormLogin() {
@@ -106,15 +146,11 @@ function loadFormLogin() {
                             existingFlashMessage.remove();
                         }
 
-                        // Display success message, close popup, and redirect
-                        const flashMessage = document.createElement("p");
-                        flashMessage.textContent = data.message;
-                        flashMessage.classList.add("flash-message");
-                        loginPopup.querySelector(".popup-content").appendChild(flashMessage);
+                        // Display success message, close popup, and update welcome message
+                        updateWelcomeMessage(data.username, data.avatar_url);
 
-                        // Close the popup and redirect to the homepage
+                        // Close the popup
                         loginPopup.style.display = "none";
-                        window.location.href = '/';  // Redirect to homepage
                     } else {
                         // Display error message
                         const flashMessage = document.createElement("p");

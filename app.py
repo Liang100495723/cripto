@@ -13,10 +13,12 @@ app.secret_key = 'mysecretkey'
 def index():
     return render_template('index.html')
 
+
 # Route for rendering the registration form (GET)
 @app.route('/register_form')
 def register_form():
     return render_template('registro.html')
+
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -40,11 +42,12 @@ def register():
                 number = True
             elif not char.isalnum():
                 special = True
-        
+
         if not mayusc or not number or not special:
-            return jsonify(success=False, message="La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
-        
-        # Archivo json 
+            return jsonify(success=False,
+                           message="La contraseña debe contener al menos una mayúscula, un número y un caracter especial")
+
+        # Archivo json
         json_file = 'usuarios_registrados.json'
 
         if os.path.exists(json_file):
@@ -58,7 +61,6 @@ def register():
                     return jsonify(success=False, message="El nombre de usuario ya existe")
                 if user['email'] == email:
                     return jsonify(success=False, message="El correo electrónico ya está registrado")
-
 
         # Guardar en un archivo JSON local
         user_data = {
@@ -92,6 +94,7 @@ def register():
 def login_form():
     return render_template('iniciosesion.html')
 
+
 @app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
@@ -106,11 +109,12 @@ def login():
                 users = json.load(file)
 
             for user in users:
-                if (user['username'] == username_or_email or user['email'] == username_or_email) and user['password'] == password:
+                if (user['username'] == username_or_email or user['email'] == username_or_email) and user[
+                    'password'] == password:
                     # Guardar el nombre de usuario en la sesión
                     session['username'] = user['username']
                     flash("Inicio de sesión correcto", "success")
-                    
+
                     # Redirigir a la página de inicio con la sesión activa
                     return redirect(url_for('index'))
 
@@ -132,9 +136,18 @@ def logout():
 def edit_user():
     return 'Edit User'
 
+
 @app.route('/delete')
 def delete_user():
     return 'Delete User'
+
+def login():
+    # Lógica de autenticación
+    if login_exitoso:
+        return jsonify(success=True, username=session['username'], avatar_url=session.get('avatar_url'))
+    else:
+        return jsonify(success=False, message="Usuario o contraseña incorrectos.")
+
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)

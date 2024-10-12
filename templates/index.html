@@ -30,18 +30,28 @@
       {% if 'username' in session %}
         <div class="user-profile">
           <img src="{{ session.get('avatar_url', 'static/images/fotoperfil.png') }}" alt="Avatar de {{ session['username'] }}" class="user-avatar">
-          <p>¡Hola, {{ session['username'] }}!</p>
+          <p id ="welcome-message">¡Hola, {{ session['username'] }}!</p>
           <button class="enlarge" id="logoutBtn" onclick="window.location.href='/logout';">Cerrar sesión</button>
         </div>
       {% else %}
-        <button class="enlarge" id="loginBtn" onclick="showPopup('loginPopup')">Inicia sesión</button>
+        <button class="enlarge" id="loginBtn" onclick="window.location.href='/iniciosesion.html';">Inicia sesión</button>
         <button class="enlarge" id="registerBtn" onclick="window.location.href='/register_form';">Regístrate</button>
       {% endif %}
     </div>
     
-    <div id="registerPopup" class="popup"></div>
-    <div id="loginPopup" class="popup"></div>
-    
+    <!-- Popups for registration and login -->
+<div id="registerPopup" class="popup" style="display:none;"></div>
+<div id="loginPopup" class="popup" style="display:none;"></div>
+
+<!-- Welcome message -->
+<div id="account">
+    <div id="welcomeMessage" style="display:none; color: green; font-size: 1.5em; text-align: center;">
+        ¡Hola, <span id="usernameDisplay"></span>!
+    </div>
+</div>
+
+
+
     <script src="static/script.js"></script> <!-- External JavaScript -->
   </header>
     
