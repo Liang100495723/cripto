@@ -130,6 +130,45 @@ def logout():
     flash("Has cerrado sesión correctamente")
     return redirect(url_for('index'))
 
+@app.route('/enviar-carta', methods=['POST'])
+def enviar_carta():
+        nombre = request.form['nombre']
+        email = request.form['email']
+        ciudad = request.form['ciudad']
+        pais = request.form['pais']
+        carta = request.form['carta']
+
+        # Nombre del archivo JSON local
+        json_file = 'cartas_usuarios.json'
+
+         # Verificar si el archivo existe
+        if os.path.exists(json_file):
+            # Leer el archivo JSON
+            with open(json_file, 'r') as file:
+                file = json.load(file)
+
+        cartas_data = {
+            'nombre': nombre,
+            'email': email,
+            'ciudad': ciudad,
+            'pais': pais,
+            'carta': carta
+        }
+        if os.path.exists(json_file):
+            # Si existe, leer el archivo y agregar el nuevo usuario
+            with open(json_file, 'r') as file:
+                data = json.load(file)
+                data.append(cartas_data)
+        else:
+            # Si no existe, crear una nueva lista con el primer usuario
+            data = [cartas_data]
+
+        # Guardar el archivo actualizado
+        with open(json_file, 'w') as file:
+            json.dump(data, file, indent=4)
+
+        flash("Carta enviada correctamente")
+        return jsonify(success=True, message="Carta enviada correctamente")
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)

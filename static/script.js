@@ -215,3 +215,35 @@ loginBtn.onclick = function() {
     loadFormLogin();
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Selecciona el formulario
+    const form = document.getElementById("formulario");
+            form.onsubmit = function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(form);
+                fetch('/enviar-carta', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            };
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error al enviar la carta');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Mostrar éxito al usuario
+            console.log('Carta enviada con éxito:', data);
+            alert('Carta enviada correctamente');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al enviar la carta.');
+        });
