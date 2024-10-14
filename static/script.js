@@ -26,7 +26,7 @@ function updateWelcomeMessage(username, avatarUrl) {
     logoutBtn.id = "logoutBtn";
     logoutBtn.textContent = "Cerrar sesión";
     logoutBtn.onclick = function() {
-        window.location.href = '/logout';
+        confirmLogout();
     };
 
     // Append the new elements to the account div
@@ -214,3 +214,4 @@ registerBtn.onclick = function() {
 loginBtn.onclick = function() {
     loadFormLogin();
 }
+
