@@ -139,6 +139,10 @@ def enviar_carta():
     pais = request.form['pais']
     carta = request.form['carta']
 
+    if not nombre or not email or not ciudad or not pais or not carta:
+        return jsonify(success=False, message="Por favor, complete todos los campos")
+    if email != session.get('email'):
+        return jsonify(success=False, message="El email no coincide con el del usuario logueado")
     # Path to the JSON file
     json_file = 'cartas_usuarios.json'
 
