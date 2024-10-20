@@ -139,6 +139,8 @@ def enviar_carta():
     pais = request.form['pais']
     carta = request.form['carta']
 
+    if session.get('email') is None:
+        return jsonify(success=False, message="Por favor, inicia sesión para enviar una carta")
     if not nombre or not email or not ciudad or not pais or not carta:
         return jsonify(success=False, message="Por favor, complete todos los campos")
     if email != session.get('email'):
