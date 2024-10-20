@@ -132,43 +132,53 @@ def logout():
 
 @app.route('/enviar-carta', methods=['POST'])
 def enviar_carta():
-        nombre = request.form['nombre']
-        email = request.form['email']
-        ciudad = request.form['ciudad']
-        pais = request.form['pais']
-        carta = request.form['carta']
+        # Get form data from the request
+    nombre = request.form['nombre']
+    email = request.form['email']
+    ciudad = request.form['ciudad']
+    pais = request.form['pais']
+    carta = request.form['carta']
 
-        # Nombre del archivo JSON local
-        json_file = 'cartas_usuarios.json'
+    # Path to the JSON file
+    json_file = 'cartas_usuarios.json'
 
-         # Verificar si el archivo existe
-        if os.path.exists(json_file):
-            # Leer el archivo JSON
+    # Data to be added to the JSON file
+    cartas_data = {
+        'nombre': nombre,
+        'email': email,
+        'ciudad': ciudad,
+        'pais': pais,
+        'carta': carta
+    }
+
+    # Check if the JSON file exists
+    if os.path.exists(json_file):
+        try:
             with open(json_file, 'r') as file:
-                file = json.load(file)
+                file_content = file.read().strip()  # Read and strip whitespace
 
-        cartas_data = {
-            'nombre': nombre,
-            'email': email,
-            'ciudad': ciudad,
-            'pais': pais,
-            'carta': carta
-        }
-        if os.path.exists(json_file):
-            # Si existe, leer el archivo y agregar el nuevo usuario
-            with open(json_file, 'r') as file:
-                data = json.load(file)
-                data.append(cartas_data)
-        else:
-            # Si no existe, crear una nueva lista con el primer usuario
-            data = [cartas_data]
+                if not file_content:  # If the file is empty
+                    data = []
+                else:
+                    # Load the data if file has content
+                    data = json.loads(file_content)
+        except json.JSONDecodeError:
+            # Handle the case where the JSON is malformed or empty
+            data = []
+    else:
+        # If file doesn't exist, start with an empty list
+        data = []
 
-        # Guardar el archivo actualizado
-        with open(json_file, 'w') as file:
-            json.dump(data, file, indent=4)
+    # Append the new letter data
+    data.append(cartas_data)
 
-        flash("Carta enviada correctamente")
-        return jsonify(success=True, message="Carta enviada correctamente")
+    # Write the updated data back to the JSON file
+    with open(json_file, 'w') as file:
+        json.dump(data, file, indent=4)
+
+    # Flash message and return a JSON response
+    flash("Carta enviada correctamente")
+    return jsonify(success=True, message="Carta enviada correctamente")
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)

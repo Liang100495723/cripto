@@ -1,0 +1,16 @@
+[
+    {
+        "nombre": "Usuairo 2",
+        "email": "prueba@gmail.com",
+        "ciudad": "Madrid",
+        "pais": "Espa\u00f1a",
+        "carta": "Querido Pap\u00e1 Noel,\r\nHola\r\nAdi\u00f3s"
+    },
+    {
+        "nombre": "Usuario 2",
+        "email": "prueba@gmail.com",
+        "ciudad": "Madrid",
+        "pais": "Espa\u00f1a",
+        "carta": "Querido Pap\u00e1 Noel,"
+    }
+]
