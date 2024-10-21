@@ -8,5 +8,33 @@
         "username": "usuario2",
         "password": "Usuario_2024",
         "email": "osandjnndaaaaaaa@gmail.com"
+    },
+    {
+        "username": "usuario3",
+        "password": "Usuario_3_2024",
+        "email": "akshbabuhaefiuabi@gmail.com"
+    },
+    {
+        "username": "usuario4",
+        "password": "HolaHola_23",
+        "email": "ashdbcajbhe@gmail.com"
+    },
+    {
+        "username": "Prueba_AES",
+        "email": "pruebaaes@gmail.com",
+        "password": "{\"ciphertext\": \"wr+HKUh/56/fGJs=\", \"nonce\": \"SsCiiLWEP/TZGcskymToMg==\", \"tag\": \"5FHnRr73NuSkahmXlnp4yA==\"}",
+        "aes_key": "Pm63XmBDRL8xsOUt4066Zaqhm1n6Pz/mA2wLKRmCYQY="
+    },
+    {
+        "username": "Prueba_AES2",
+        "email": "pruebaaes2@gmail.com",
+        "password": "{\"ciphertext\": \"blkRTBUVB5HOutg=\", \"nonce\": \"IHS6ZcfeSeNaq4gC/WX4Cg==\", \"tag\": \"CDx6viT0Tq1tX4iXXrfdvg==\"}",
+        "aes_key": "ajF/fqUeDZVN6qAI5MQiNOoD1xLkBHJu26b/ug0JDfo="
+    },
+    {
+        "username": "Prueba_AES3",
+        "email": "pruebaaes3@gmail.com",
+        "password": "{\"ciphertext\": \"02Acv3U+jjdAs8Q=\", \"nonce\": \"Yk1JQklTqJ+zB7frtWDvLg==\", \"tag\": \"euPdhBSSd11EH7jxUdsw3w==\"}",
+        "aes_key": "ptlhJlmpOijURnH1eeSwW8WccTZ5jEpAt2vNjl9AwNw="
     }
 ]

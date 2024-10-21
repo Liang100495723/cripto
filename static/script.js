@@ -118,8 +118,11 @@ function loadFormLogin() {
             // Get the close button after loading the form
             const closeBtn = loginPopup.querySelector(".close-popup");
 
+
             // Show the popup
             loginPopup.style.display = "block";
+
+
 
             // Close the pop-up when the "x" is clicked
             closeBtn.onclick = function() {
@@ -146,12 +149,12 @@ function loadFormLogin() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-
                         // Display success message, close popup, and update welcome message
+                        alert("Inicio de sesión exitoso");
                         updateWelcomeMessage(data.username, data.avatar_url);
-
-                        // Close the popup
                         loginPopup.style.display = "none";
+
+
                     } else {
                         // Display error message
                         const flashMessage = document.createElement("p");
@@ -169,6 +172,48 @@ function loadFormLogin() {
             console.error('Error loading the form:', error);
         });
 }
+
+// After a successful login, update the welcome message and show the logout button
+function updateWelcomeMessage(username, avatarUrl) {
+    console.log("Actualizando mensaje de bienvenida para:", username);
+    const accountDiv = document.getElementById("account");
+
+    if (!accountDiv) {
+        console.error("No se encuentra el div con el ID 'account'");
+        return;
+    }
+
+    // Create the user profile elements
+    const userProfile = document.createElement("div");
+    userProfile.classList.add("user-profile");
+
+    const avatarImg = document.createElement("img");
+    avatarImg.src = avatarUrl || 'static/images/fotoperfil.png';  // Default avatar if none provided
+    avatarImg.alt = "Avatar de " + username;
+    avatarImg.classList.add("user-avatar");
+
+    const welcomeMessage = document.createElement("p");
+    welcomeMessage.id = "welcome-message";
+    welcomeMessage.textContent = "¡Hola, " + username + "!";
+
+    const logoutBtn = document.createElement("button");
+    logoutBtn.classList.add("enlarge");
+    logoutBtn.id = "logoutBtn";
+    logoutBtn.textContent = "Cerrar sesión";
+    logoutBtn.onclick = function() {
+        confirmLogout();
+    };
+
+    // Append the new elements to the account div
+    userProfile.appendChild(avatarImg);
+    userProfile.appendChild(welcomeMessage);
+    userProfile.appendChild(logoutBtn);
+
+    // Clear the current content of the account div and insert the new content
+    accountDiv.innerHTML = '';
+    accountDiv.appendChild(userProfile);
+}
+
 
 // Button to see Password
 function togglePassword(fieldId) {
