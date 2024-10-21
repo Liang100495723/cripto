@@ -84,8 +84,8 @@ function loadFormRegister() {
                 .then(data => {
                     if (data.success) {
                         // If registration is successful, show the welcome message
-                        updateWelcomeMessage(data.username, data.avatarUrl);
-
+                        //updateWelcomeMessage(data.username, data.avatarUrl);
+                        alert("Registro exitoso");
                         // Close the registration popup
                         registerPopup.style.display = "none";
 
@@ -263,19 +263,14 @@ loginBtn.onclick = function() {
 document.addEventListener('DOMContentLoaded', function() {
     // Selecciona el formulario
     const form = document.getElementById("formulario");
-            form.onsubmit = function(event) {
-                event.preventDefault(); // Prevent default form submission
+    
+    form.onsubmit = function(event) {
+        event.preventDefault(); // Prevent default form submission
 
-                const formData = new FormData(form);
-                fetch('/enviar-carta', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            };
+        const formData = new FormData(form);
+        fetch('/enviar-carta', {
+            method: 'POST',
+            body: formData
         })
         .then(response => {
             if (!response.ok) {
@@ -284,11 +279,17 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            // Mostrar éxito al usuario
+            if (data.success) {
+                // Mostrar éxito al usuario
             console.log('Carta enviada con éxito:', data);
             alert('Carta enviada correctamente');
+                
+            }
+            
         })
         .catch(error => {
             console.error('Error:', error);
             alert('Hubo un problema al enviar la carta.');
         });
+    };
+});
