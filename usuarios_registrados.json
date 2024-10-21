@@ -36,5 +36,17 @@
         "email": "pruebaaes3@gmail.com",
         "password": "{\"ciphertext\": \"02Acv3U+jjdAs8Q=\", \"nonce\": \"Yk1JQklTqJ+zB7frtWDvLg==\", \"tag\": \"euPdhBSSd11EH7jxUdsw3w==\"}",
         "aes_key": "ptlhJlmpOijURnH1eeSwW8WccTZ5jEpAt2vNjl9AwNw="
+    },
+    {
+        "username": "Prueba1",
+        "email": "asjfnkajsna@gmail.com",
+        "password": "{\"ciphertext\": \"79pZUWdXhBgjIw==\", \"nonce\": \"1ZLvvJ2nZWvZEsQ3FGHSIQ==\", \"tag\": \"GgLduZrmFAgpu1C0QBdhUg==\"}",
+        "aes_key": "18tqIwR9wlqBWCXP03N5RNMBCgMXbJuL3thfXwj5GyQ="
+    },
+    {
+        "username": "Prueba_AES5",
+        "email": "pruebaaes5@gmail.com",
+        "password": "{\"ciphertext\": \"E2nA6f01FxzbRsA=\", \"nonce\": \"20/gk9KnanQqwPwm995WKw==\", \"tag\": \"X/94Sp7b/bBrWbikNOKrwA==\"}",
+        "aes_key": "mwIZudpMWwoQA7WEtWSW/nIcBogm/O7sJ8Xe2Stkt38="
     }
 ]

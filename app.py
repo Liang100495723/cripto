@@ -155,6 +155,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('username', None)  # Elimina la sesión
+    session.pop('email', None) #Elimina el email
     flash("Has cerrado sesión correctamente")
     return redirect(url_for('index'))
 
