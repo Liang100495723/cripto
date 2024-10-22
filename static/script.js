@@ -1,42 +1,9 @@
-// After a successful login, update the welcome message and show the logout button
-function updateWelcomeMessage(username, avatarUrl) {
-    console.log("Actualizando mensaje de bienvenida para:", username);
-    const accountDiv = document.getElementById("account");
+function SoyPapaNoel(){
+    cartas = document.getElementById("NoSoyPapaNoel");
+    cartas.style.display = "none";
 
-    if (!accountDiv) {
-        console.error("No se encuentra el div con el ID 'account'");
-        return;
-    }
-
-    // Create the user profile elements
-    const userProfile = document.createElement("div");
-    userProfile.classList.add("user-profile");
-
-    const avatarImg = document.createElement("img");
-    avatarImg.src = avatarUrl || 'static/images/fotoperfil.png';  // Default avatar if none provided
-    avatarImg.alt = "Avatar de " + username;
-    avatarImg.classList.add("user-avatar");
-
-    const welcomeMessage = document.createElement("p");
-    welcomeMessage.id = "welcome-message";
-    welcomeMessage.textContent = "¡Hola, " + username + "!";
-
-    const logoutBtn = document.createElement("button");
-    logoutBtn.classList.add("enlarge");
-    logoutBtn.id = "logoutBtn";
-    logoutBtn.textContent = "Cerrar sesión";
-    logoutBtn.onclick = function() {
-        confirmLogout();
-    };
-
-    // Append the new elements to the account div
-    userProfile.appendChild(avatarImg);
-    userProfile.appendChild(welcomeMessage);
-    userProfile.appendChild(logoutBtn);
-
-    // Clear the current content of the account div and insert the new content
-    accountDiv.innerHTML = '';
-    accountDiv.appendChild(userProfile);
+    button = document.getElementById("LeerCartas");
+    button.style.display = "block";
 }
 
 // Get the pop-up and the register button
@@ -151,6 +118,14 @@ function loadFormLogin() {
                     if (data.success) {
                         // Display success message, close popup, and update welcome message
                         alert("Inicio de sesión exitoso");
+                        if (data.username === "PAPA NOEL"){
+                            console.log("Username is PAPA NOEL");
+                            alert("Wow, ¿eres Papá Noel de verdad?")
+                            SoyPapaNoel();
+                        }
+                        else{
+                            console.log("Username is not PAPA NOEL");
+                        }
                         updateWelcomeMessage(data.username, data.avatar_url);
                         loginPopup.style.display = "none";
 
@@ -176,6 +151,14 @@ function loadFormLogin() {
 // After a successful login, update the welcome message and show the logout button
 function updateWelcomeMessage(username, avatarUrl) {
     console.log("Actualizando mensaje de bienvenida para:", username);
+    /*if (username === "PAPA NOEL"){
+        console.log("Username is PAPA NOEL");
+        alert("Wow, eres Papá Noel de verdad?")
+        SoyPapaNoel();
+    }
+    else{
+        console.log("Username is not PAPA NOEL");
+    }*/
     const accountDiv = document.getElementById("account");
 
     if (!accountDiv) {

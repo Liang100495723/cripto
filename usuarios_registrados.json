@@ -49,5 +49,11 @@
         "email": "www.1159068228@gmail.com",
         "password": "{\"ciphertext\": \"K2okmDHFsOlB\", \"nonce\": \"WCbdMv8UfVA0/TDi69yrDw==\", \"tag\": \"uklOiV3ovrHoDQsM8/dsRw==\"}",
         "aes_key": "Nai0N/lPbuHgMyxaO0I48HKN4wACmGaeB6h8lqrG1iE="
+    },
+    {
+        "username": "PAPA NOEL",
+        "email": "papanoel@gmail.com",
+        "password": "{\"ciphertext\": \"P0n4+dye/sl6VMI=\", \"nonce\": \"EmdELxXO5/W8xNtWsnbZYQ==\", \"tag\": \"ei8e012zu8dfXveVr9z9nw==\"}",
+        "aes_key": "H4v4qSsjfW734TP+rywV3LdgKAy8FvKxK+etDJMiQBo="
     }
 ]
