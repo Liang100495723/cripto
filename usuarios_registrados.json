@@ -1,10 +1,5 @@
 [
     {
-        "username": "usuario1",
-        "password": "A1bc@eeee",
-        "email": "www.1159068228@gmail.com"
-    },
-    {
         "username": "usuario2",
         "password": "Usuario_2024",
         "email": "osandjnndaaaaaaa@gmail.com"
@@ -48,5 +43,11 @@
         "email": "prueba@gmail.com",
         "password": "{\"ciphertext\": \"s4isTFKSLm9w81s=\", \"nonce\": \"sOQ3txLTcyhNpyCKsPr9gg==\", \"tag\": \"BPNqb1BySP+y9i9Eqgn/0w==\"}",
         "aes_key": "3bZU8Fv0MB0KHBMGpzZMWQUvnVTlSYaA5sUHntrOMTw="
+    },
+    {
+        "username": "usuario1",
+        "email": "www.1159068228@gmail.com",
+        "password": "{\"ciphertext\": \"K2okmDHFsOlB\", \"nonce\": \"WCbdMv8UfVA0/TDi69yrDw==\", \"tag\": \"uklOiV3ovrHoDQsM8/dsRw==\"}",
+        "aes_key": "Nai0N/lPbuHgMyxaO0I48HKN4wACmGaeB6h8lqrG1iE="
     }
 ]

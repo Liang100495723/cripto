@@ -1,6 +1,6 @@
 import json
 from flask import Flask, render_template, request, flash, jsonify, session, redirect, url_for
-from crypto_utils import generate_aes_key, encrypt_aes, decrypt_aes
+from crypto_utils import generate_aes_key, encrypt_aes, decrypt_aes, load_public_key, load_private_key, encrypt_rsa, decrypt_rsa
 import os
 import base64
 
@@ -159,62 +159,109 @@ def logout():
     flash("Has cerrado sesión correctamente")
     return redirect(url_for('index'))
 
-
+# TODO: el pop up arreglarlo porfis jajajaj
+# Ruta para enviar carta (cifrado RSA)
 @app.route('/enviar-carta', methods=['POST'])
 def enviar_carta():
-        # Get form data from the request
+    # Obtener los datos del formulario
     nombre = request.form['nombre']
     email = request.form['email']
     ciudad = request.form['ciudad']
     pais = request.form['pais']
     carta = request.form['carta']
 
+    # Verificar que el usuario esté autenticado
     if session.get('email') is None:
         return jsonify(success=False, message="Por favor, inicia sesión para enviar una carta")
     if not nombre or not email or not ciudad or not pais or not carta:
         return jsonify(success=False, message="Por favor, complete todos los campos")
     if email != session.get('email'):
         return jsonify(success=False, message="El email no coincide con el del usuario logueado")
-    # Path to the JSON file
+
+    # Cargar la clave pública de Papá Noel
+    public_key = load_public_key()
+
+    # Cifrar la carta usando RSA
+    try:
+        carta_cifrada = encrypt_rsa(public_key, carta)
+    except Exception as e:
+        return jsonify(success=False, message=f"Error al cifrar la carta: {str(e)}")
+
+    # Path al archivo JSON
     json_file = 'cartas_usuarios.json'
 
-    # Data to be added to the JSON file
+    # Data que se va a agregar al archivo JSON
     cartas_data = {
         'nombre': nombre,
         'email': email,
         'ciudad': ciudad,
         'pais': pais,
-        'carta': carta
+        'carta': carta_cifrada  # Guardar la carta cifrada
     }
 
-    # Check if the JSON file exists
+    # Verifica si el archivo JSON existe
     if os.path.exists(json_file):
         try:
             with open(json_file, 'r') as file:
-                file_content = file.read().strip()  # Read and strip whitespace
-
-                if not file_content:  # If the file is empty
-                    data = []
-                else:
-                    # Load the data if file has content
+                file_content = file.read().strip()  # Leer y eliminar espacios en blanco
+                
+                if file_content:  # Si el archivo tiene contenido
                     data = json.loads(file_content)
+                else:
+                    data = []  # Si está vacío, inicializar como una lista vacía
         except json.JSONDecodeError:
-            # Handle the case where the JSON is malformed or empty
+            # Manejar el caso en el que el JSON esté mal formado
             data = []
     else:
-        # If file doesn't exist, start with an empty list
-        data = []
+        data = []  # Si no existe, inicializa con una lista vacía
 
-    # Append the new letter data
+    # Agregar la nueva carta cifrada a los datos existentes
     data.append(cartas_data)
 
-    # Write the updated data back to the JSON file
+    # Guardar los datos actualizados en el archivo JSON
     with open(json_file, 'w') as file:
         json.dump(data, file, indent=4)
 
-    # Flash message and return a JSON response
+    # Flash message y respuesta JSON
     flash("Carta enviada correctamente :)")
     return jsonify(success=True, message="Carta enviada correctamente :)")
 
+# TODO: Lectura cartas papa noel?
+# Ruta para mostrar la página para subir la clave privada
+@app.route('/leer-cartas')
+def leer_cartas_form():
+    return render_template('leer_cartas.html')
+
+# Ruta para que Papá Noel lea las cartas (descifrado RSA)
+@app.route('/leer-cartas', methods=['GET'])
+def leer_cartas():
+    # Cargar la clave privada de Papá Noel
+    private_key = load_private_key()
+
+    json_file = 'cartas_usuarios.json'
+    if os.path.exists(json_file):
+        with open(json_file, 'r') as file:
+            cartas = json.load(file)
+    else:
+        return jsonify(success=False, message="No hay cartas disponibles")
+
+    # Descifrar las cartas
+    cartas_descifradas = []
+    for carta in cartas:
+        try:
+            carta_descifrada = decrypt_rsa(private_key, carta['carta'])
+            cartas_descifradas.append({
+                'nombre': carta['nombre'],
+                'email': carta['email'],
+                'ciudad': carta['ciudad'],
+                'pais': carta['pais'],
+                'carta': carta_descifrada
+            })
+        except Exception as e:
+            print(f"Error al descifrar la carta: {e}")
+
+    return jsonify(success=True, cartas=cartas_descifradas)
+
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
+

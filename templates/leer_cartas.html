@@ -1,0 +1,37 @@
+<!-- templates/leer_cartas.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leer Cartas Cifradas</title>
+</head>
+<body>
+    <h1>Descifrar Cartas</h1>
+
+    <!-- Formulario para subir la clave privada -->
+    <form action="/descifrar-cartas" method="POST" enctype="multipart/form-data">
+        <label for="private_key">Subir Clave Privada:</label>
+        <input type="file" name="private_key" accept=".pem" required>
+        <button type="submit">Descifrar Cartas</button>
+    </form>
+
+    <!-- Donde se mostrarán las cartas descifradas -->
+    <div id="cartas">
+        {% if cartas %}
+            <h2>Cartas Descifradas</h2>
+            <ul>
+                {% for carta in cartas %}
+                    <li>
+                        <strong>Nombre:</strong> {{ carta['nombre'] }}<br>
+                        <strong>Email:</strong> {{ carta['email'] }}<br>
+                        <strong>Ciudad:</strong> {{ carta['ciudad'] }}<br>
+                        <strong>País:</strong> {{ carta['pais'] }}<br>
+                        <strong>Carta:</strong> {{ carta['carta'] }}<br><br>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
