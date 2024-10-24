@@ -4,7 +4,14 @@ function SoyPapaNoel(){
 
     button = document.getElementById("LeerCartas");
     button.style.display = "block";
+    button.onclick = function(){
+        alert("Leyendo cartas...");
+        fetch('/leer-cartas-descifradas')
+    };
 }
+
+
+
 
 // Get the pop-up and the register button
 const registerPopup = document.getElementById("registerPopup");
