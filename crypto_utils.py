@@ -17,6 +17,7 @@ def generate_aes_key():
     return get_random_bytes(32)  # AES-256 key
 
 def encrypt_aes(key, data):
+    print("encrypt_aes")
     cipher = AES.new(key, AES.MODE_GCM)
     ciphertext, tag = cipher.encrypt_and_digest(data.encode('utf-8'))
     

@@ -246,10 +246,10 @@ loginBtn.onclick = function() {
 document.addEventListener('DOMContentLoaded', function() {
     // Selecciona el formulario
     const form = document.getElementById("formulario");
-    
+    alert("Formulario cargado");
     form.onsubmit = function(event) {
         event.preventDefault(); // Prevent default form submission
-
+        alert("Estoy intentando enviar la carta");
         const formData = new FormData(form);
         fetch('/enviar-carta', {
             method: 'POST',
@@ -257,6 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
             if (!response.ok) {
+                alert('Oh no');
                 throw new Error('Error al enviar la carta');
             }
             return response.json();

@@ -55,5 +55,11 @@
         "email": "papanoel@gmail.com",
         "password": "{\"ciphertext\": \"P0n4+dye/sl6VMI=\", \"nonce\": \"EmdELxXO5/W8xNtWsnbZYQ==\", \"tag\": \"ei8e012zu8dfXveVr9z9nw==\"}",
         "aes_key": "H4v4qSsjfW734TP+rywV3LdgKAy8FvKxK+etDJMiQBo="
+    },
+    {
+        "username": "Vicky",
+        "email": "vickyy@gmail.com",
+        "password": "{\"ciphertext\": \"9rCXNcIy378=\", \"nonce\": \"vzgxhNs0pgKedodvcW3hcw==\", \"tag\": \"Jj9vdzS+aPMjpqB/v1XFkQ==\"}",
+        "aes_key": "zAQ9uhban60JNr0H0ed28kuPhFJ6QJPM38Duk4exCxs="
     }
 ]

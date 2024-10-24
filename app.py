@@ -135,6 +135,7 @@ def login():
                         if decrypted_password == password:
                             session['username'] = user['username']
                             session['email'] = user['email'] #Guardamos el email para enviar lo de la carta
+                            session['aes_key'] = user['aes_key']
                             flash("Inicio de sesión correcto", "success")
                             # Return JSON success response for AJAX
                             return jsonify(success=True, username=user['username'],
@@ -170,6 +171,7 @@ def enviar_carta():
     pais = request.form['pais']
     carta = request.form['carta']
 
+    
     # Verificar que el usuario esté autenticado
     if session.get('email') is None:
         return jsonify(success=False, message="Por favor, inicia sesión para enviar una carta")
@@ -180,23 +182,29 @@ def enviar_carta():
 
     # Cargar la clave pública de Papá Noel
     public_key = load_public_key()
-
+    #HAY QUE CIFRAR LA CARTA CON AES Y LA CONTRASEÑA DEL AES CON LA CLAVE PUBLICA DE PAPA NOEL
     # Cifrar la carta usando RSA
     try:
-        carta_cifrada = encrypt_rsa(public_key, carta)
+        aeskey = session.get('aes_key')
+        aeskey_decoded = base64.b64decode(aeskey)
+        print("estoy aquí")
+        carta_cifrada = encrypt_aes(aeskey_decoded, carta)
+        print("holaaaa")
+        aeskey_cifrada = encrypt_rsa(public_key, base64.b64encode(aes_key).decode('utf-8'))
+        print(aeskey_cifrada)
     except Exception as e:
         return jsonify(success=False, message=f"Error al cifrar la carta: {str(e)}")
-
     # Path al archivo JSON
     json_file = 'cartas_usuarios.json'
-
+    
     # Data que se va a agregar al archivo JSON
     cartas_data = {
         'nombre': nombre,
         'email': email,
         'ciudad': ciudad,
         'pais': pais,
-        'carta': carta_cifrada  # Guardar la carta cifrada
+        'carta': carta_cifrada,  # Guardar la carta cifrada
+        'aes_key_cifrada': aeskey_cifrada # Guardar la clave AES cifrada con RSA
     }
 
     # Verifica si el archivo JSON existe
