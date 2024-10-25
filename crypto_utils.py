@@ -74,6 +74,15 @@ def decrypt_rsa(private_key, encrypted_message):
     )
     return decrypted.decode()
 
+def load_private_key_from_file(file_path):
+    with open(file_path, 'rb') as key_file:
+        private_key = serialization.load_pem_private_key(
+            key_file.read(),
+            password=None,  # Cambia esto si tu clave privada tiene una contraseña
+            backend=default_backend()
+        )
+    return private_key
+
 # HMAC for Authentication
 def generate_hmac(secret_key, message):
     h = hmac.new(secret_key.encode(), message.encode(), hashlib.sha256)

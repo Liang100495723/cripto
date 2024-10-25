@@ -1,50 +1,5 @@
 [
     {
-        "username": "usuario2",
-        "password": "Usuario_2024",
-        "email": "osandjnndaaaaaaa@gmail.com"
-    },
-    {
-        "username": "usuario3",
-        "password": "Usuario_3_2024",
-        "email": "akshbabuhaefiuabi@gmail.com"
-    },
-    {
-        "username": "usuario4",
-        "password": "HolaHola_23",
-        "email": "ashdbcajbhe@gmail.com"
-    },
-    {
-        "username": "Prueba_AES",
-        "email": "pruebaaes@gmail.com",
-        "password": "{\"ciphertext\": \"wr+HKUh/56/fGJs=\", \"nonce\": \"SsCiiLWEP/TZGcskymToMg==\", \"tag\": \"5FHnRr73NuSkahmXlnp4yA==\"}",
-        "aes_key": "Pm63XmBDRL8xsOUt4066Zaqhm1n6Pz/mA2wLKRmCYQY="
-    },
-    {
-        "username": "Prueba_AES2",
-        "email": "pruebaaes2@gmail.com",
-        "password": "{\"ciphertext\": \"blkRTBUVB5HOutg=\", \"nonce\": \"IHS6ZcfeSeNaq4gC/WX4Cg==\", \"tag\": \"CDx6viT0Tq1tX4iXXrfdvg==\"}",
-        "aes_key": "ajF/fqUeDZVN6qAI5MQiNOoD1xLkBHJu26b/ug0JDfo="
-    },
-    {
-        "username": "Prueba_AES3",
-        "email": "pruebaaes3@gmail.com",
-        "password": "{\"ciphertext\": \"02Acv3U+jjdAs8Q=\", \"nonce\": \"Yk1JQklTqJ+zB7frtWDvLg==\", \"tag\": \"euPdhBSSd11EH7jxUdsw3w==\"}",
-        "aes_key": "ptlhJlmpOijURnH1eeSwW8WccTZ5jEpAt2vNjl9AwNw="
-    },
-    {
-        "username": "vickyy",
-        "email": "vicky@gmail.com",
-        "password": "{\"ciphertext\": \"sC+G7ukq9EXXsw==\", \"nonce\": \"el8AW43+LGrt3LtRxxRl1g==\", \"tag\": \"JO4Qc9GJkOodmIWo7jPv9g==\"}",
-        "aes_key": "C3XvyHBArvlHJbn4zfuON6DUiBjXI3Zcc9vzsxHGLps="
-    },
-    {
-        "username": "prueba",
-        "email": "prueba@gmail.com",
-        "password": "{\"ciphertext\": \"s4isTFKSLm9w81s=\", \"nonce\": \"sOQ3txLTcyhNpyCKsPr9gg==\", \"tag\": \"BPNqb1BySP+y9i9Eqgn/0w==\"}",
-        "aes_key": "3bZU8Fv0MB0KHBMGpzZMWQUvnVTlSYaA5sUHntrOMTw="
-    },
-    {
         "username": "usuario1",
         "email": "www.1159068228@gmail.com",
         "password": "{\"ciphertext\": \"K2okmDHFsOlB\", \"nonce\": \"WCbdMv8UfVA0/TDi69yrDw==\", \"tag\": \"uklOiV3ovrHoDQsM8/dsRw==\"}",
@@ -55,11 +10,5 @@
         "email": "papanoel@gmail.com",
         "password": "{\"ciphertext\": \"P0n4+dye/sl6VMI=\", \"nonce\": \"EmdELxXO5/W8xNtWsnbZYQ==\", \"tag\": \"ei8e012zu8dfXveVr9z9nw==\"}",
         "aes_key": "H4v4qSsjfW734TP+rywV3LdgKAy8FvKxK+etDJMiQBo="
-    },
-    {
-        "username": "Vicky",
-        "email": "vickyy@gmail.com",
-        "password": "{\"ciphertext\": \"9rCXNcIy378=\", \"nonce\": \"vzgxhNs0pgKedodvcW3hcw==\", \"tag\": \"Jj9vdzS+aPMjpqB/v1XFkQ==\"}",
-        "aes_key": "zAQ9uhban60JNr0H0ed28kuPhFJ6QJPM38Duk4exCxs="
     }
 ]

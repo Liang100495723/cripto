@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, flash, jsonify, session, redi
 from crypto_utils import generate_aes_key, encrypt_aes, decrypt_aes, load_public_key, load_private_key, encrypt_rsa, decrypt_rsa
 import os
 import base64
+from Crypto.Cipher import AES
 
 app = Flask(__name__)
 
@@ -160,8 +161,6 @@ def logout():
     flash("Has cerrado sesión correctamente")
     return redirect(url_for('index'))
 
-# TODO: el pop up arreglarlo porfis jajajaj
-# Ruta para enviar carta (cifrado RSA)
 @app.route('/enviar-carta', methods=['POST'])
 def enviar_carta():
     # Obtener los datos del formulario
@@ -171,92 +170,79 @@ def enviar_carta():
     pais = request.form['pais']
     carta = request.form['carta']
 
-    
-    # Verificar que el usuario esté autenticado
-    if session.get('email') is None:
-        return jsonify(success=False, message="Por favor, inicia sesión para enviar una carta")
-    if not nombre or not email or not ciudad or not pais or not carta:
-        return jsonify(success=False, message="Por favor, complete todos los campos")
-    if email != session.get('email'):
-        return jsonify(success=False, message="El email no coincide con el del usuario logueado")
+    if session.get('email') is None or email != session.get('email'):
+        return jsonify(success=False, message="Sesión o email no coinciden")
 
-    # Cargar la clave pública de Papá Noel
     public_key = load_public_key()
-    #HAY QUE CIFRAR LA CARTA CON AES Y LA CONTRASEÑA DEL AES CON LA CLAVE PUBLICA DE PAPA NOEL
-    # Cifrar la carta usando RSA
-    try:
-        aeskey = session.get('aes_key')
-        aeskey_decoded = base64.b64decode(aeskey)
-        carta_cifrada = encrypt_aes(aeskey_decoded, carta)
-        aeskey_cifrada = encrypt_rsa(public_key, base64.b64encode(aes_key).decode('utf-8'))
-    except Exception as e:
-        return jsonify(success=False, message=f"Error al cifrar la carta: {str(e)}")
-    # Path al archivo JSON
-    json_file = 'cartas_usuarios.json'
-    
-    # Data que se va a agregar al archivo JSON
+    aes_key = base64.b64decode(session['aes_key'])
+    carta_cifrada = encrypt_aes(aes_key, carta)
+    aes_key_cifrada = encrypt_rsa(public_key, base64.b64encode(aes_key).decode())
+
     cartas_data = {
         'nombre': nombre,
         'email': email,
         'ciudad': ciudad,
         'pais': pais,
-        'carta': carta_cifrada,  # Guardar la carta cifrada
-        'aes_key_cifrada': aeskey_cifrada # Guardar la clave AES cifrada con RSA
+        'carta': carta_cifrada,
+        'aes_key_cifrada': aes_key_cifrada
     }
 
-    # Verifica si el archivo JSON existe
-    if os.path.exists(json_file):
-        try:
-            with open(json_file, 'r') as file:
-                file_content = file.read().strip()  # Leer y eliminar espacios en blanco
-                
-                if file_content:  # Si el archivo tiene contenido
-                    data = json.loads(file_content)
-                else:
-                    data = []  # Si está vacío, inicializar como una lista vacía
-        except json.JSONDecodeError:
-            # Manejar el caso en el que el JSON esté mal formado
-            data = []
-    else:
-        data = []  # Si no existe, inicializa con una lista vacía
+    json_file = 'cartas_usuarios.json'
 
-    # Agregar la nueva carta cifrada a los datos existentes
+    # Verifica si el archivo JSON contiene una lista válida
+    if os.path.exists(json_file) and os.path.getsize(json_file) > 0:
+        with open(json_file, 'r') as file:
+            try:
+                data = json.load(file)
+            except json.JSONDecodeError:
+                data = []  # Inicia una lista vacía si el archivo tiene un formato inválido
+    else:
+        data = []
+
     data.append(cartas_data)
 
-    # Guardar los datos actualizados en el archivo JSON
+    # Guarda el archivo JSON con el nuevo dato incluido
     with open(json_file, 'w') as file:
         json.dump(data, file, indent=4)
 
-    # Flash message y respuesta JSON
-    flash("Carta enviada correctamente :)")
     return jsonify(success=True, message="Carta enviada correctamente :)")
 
-# TODO: Lectura cartas papa noel?
+# TODO: no se popea las cartas que son descifradas :/
 # Ruta para mostrar la página para subir la clave privada
 @app.route('/leer-cartas')
 def leer_cartas_form():
     return render_template('leer_cartas.html')
 
 # Ruta para que Papá Noel lea las cartas (descifrado RSA)
-@app.route('/leer-cartas-descifradas')
+@app.route('/leer-cartas-descifradas', methods=['GET'])
 def leer_cartas():
-    # Cargar la clave privada de Papá Noel
     print("Leyendo cartas")
-    private_key = load_private_key()
+    private_key = load_private_key()  # Asegúrate de que la clave privada esté disponible
 
     json_file = 'cartas_usuarios.json'
-    if os.path.exists(json_file):
-        with open(json_file, 'r') as file:
-            cartas = json.load(file)
-    else:
-        return jsonify(success=False, message="No hay cartas disponibles")
+    if not os.path.exists(json_file):
+        # Si no existe el archivo, renderizar con mensaje de error
+        return render_template('leer_cartas.html', cartas=[], error="No hay cartas disponibles")
 
-    # Descifrar las cartas
+    # Leer y procesar cartas
+    with open(json_file, 'r') as file:
+        cartas = json.load(file)
+
     cartas_descifradas = []
     for carta in cartas:
         try:
-            aeskey_descifrada = decrypt_rsa(private_key, carta['aes_key_cifrada'])
-            carta_descifrada = decrypt_aes(aeskey_descifrada, carta['carta'])
+            aes_key_cifrada = carta['aes_key_cifrada']
+            aes_key_descifrada = decrypt_rsa(private_key, aes_key_cifrada)
+            aes_key_bytes = base64.b64decode(aes_key_descifrada)
+            
+            carta_cifrada_data = json.loads(carta['carta'])
+            ciphertext = base64.b64decode(carta_cifrada_data['ciphertext'])
+            nonce = base64.b64decode(carta_cifrada_data['nonce'])
+            tag = base64.b64decode(carta_cifrada_data['tag'])
+
+            cipher = AES.new(aes_key_bytes, AES.MODE_GCM, nonce=nonce)
+            carta_descifrada = cipher.decrypt_and_verify(ciphertext, tag).decode('utf-8')
+
             cartas_descifradas.append({
                 'nombre': carta['nombre'],
                 'email': carta['email'],
@@ -264,13 +250,23 @@ def leer_cartas():
                 'pais': carta['pais'],
                 'carta': carta_descifrada
             })
-            print(carta_descifrada)
         except Exception as e:
             print(f"Error al descifrar la carta: {e}")
 
-    with open('cartas_descifradas.json', 'w') as output_file:
-        json.dump(cartas_descifradas, output_file, indent=4)
-    return jsonify(success=True, cartas=cartas_descifradas)
+    # Guardar las cartas descifradas en un archivo JSON y redirigir con ellas
+    if cartas_descifradas:
+        with open('cartas_descifradas.json', 'w') as output_file:
+            json.dump(cartas_descifradas, output_file, indent=4)
+        print("Cartas descifradas guardadas en cartas_descifradas.json")
+    else:
+        print("No se pudieron descifrar las cartas")
+
+    # Renderizar leer_cartas.html con las cartas descifradas
+    return render_template('leer_cartas.html', cartas=cartas_descifradas)
+
+
+
+
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
