@@ -143,6 +143,11 @@ def login():
                             session['aes_key'] = user['aes_key']
                             flash("Inicio de sesión correcto", "success")
                             # Return JSON success response for AJAX
+                            #Nos aseguramos de que el JSON con cartas NUNCA esté disponible si no eres papá noel
+                            if session['username'] != 'PAPA NOEL':
+                                # Elimina el archivo 'cartas_descifradas.json' si existe
+                                if os.path.exists('cartas_descifradas.json'):
+                                    os.remove('cartas_descifradas.json')
                             return jsonify(success=True, username=user['username'],
                                            avatar_url=None)  # Assuming no avatar for now
                         else:
@@ -160,6 +165,10 @@ def login():
 
 @app.route('/logout')
 def logout():
+    if session.get('username') == 'PAPA NOEL':
+        # Elimina el archivo 'cartas_descifradas.json' si existe
+        if os.path.exists('cartas_descifradas.json'):
+            os.remove('cartas_descifradas.json')
     session.pop('username', None)  # Elimina la sesión
     session.pop('email', None) #Elimina el email
     flash("Has cerrado sesión correctamente")
