@@ -10,5 +10,17 @@
         "email": "papanoel@gmail.com",
         "password": "{\"ciphertext\": \"P0n4+dye/sl6VMI=\", \"nonce\": \"EmdELxXO5/W8xNtWsnbZYQ==\", \"tag\": \"ei8e012zu8dfXveVr9z9nw==\"}",
         "aes_key": "H4v4qSsjfW734TP+rywV3LdgKAy8FvKxK+etDJMiQBo="
+    },
+    {
+        "username": "Vicky",
+        "email": "vickyy@gmail.com",
+        "password": "{\"ciphertext\": \"0fU8YZrMaVk=\", \"nonce\": \"Wy86RMV+1NGBJ0SCSBv++w==\", \"tag\": \"FOBIx8qXKhKA5g5FNxxBeQ==\"}",
+        "aes_key": "dQOnQVfiANT1/dCdXK04+1j4/8WlDIIUTZ4UaOltEtc="
+    },
+    {
+        "username": "holis",
+        "email": "holii@gmail.com",
+        "password": "{\"ciphertext\": \"A88FN71rddo=\", \"nonce\": \"3/l9VDxhHhrDms9NOmcOkA==\", \"tag\": \"liX7U1xXnVDirqO6Zvmc9g==\"}",
+        "aes_key": "zobAteWpmIlEFPRkkus3JSFFLres6fayEs/Ulm9WngA="
     }
 ]

@@ -85,7 +85,7 @@ def load_private_key_from_file(file_path):
 
 # HMAC for Authentication
 def generate_hmac(secret_key, message):
-    h = hmac.new(secret_key.encode(), message.encode(), hashlib.sha256)
+    h = hmac.new(secret_key.encode(), message, hashlib.sha256)
     return h.hexdigest()
 
 def verify_hmac(secret_key, message, received_hmac):
