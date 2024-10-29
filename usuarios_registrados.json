@@ -6,12 +6,6 @@
         "aes_key": "Nai0N/lPbuHgMyxaO0I48HKN4wACmGaeB6h8lqrG1iE="
     },
     {
-        "username": "PAPA NOEL",
-        "email": "papanoel@gmail.com",
-        "password": "{\"ciphertext\": \"P0n4+dye/sl6VMI=\", \"nonce\": \"EmdELxXO5/W8xNtWsnbZYQ==\", \"tag\": \"ei8e012zu8dfXveVr9z9nw==\"}",
-        "aes_key": "H4v4qSsjfW734TP+rywV3LdgKAy8FvKxK+etDJMiQBo="
-    },
-    {
         "username": "Vicky",
         "email": "vickyy@gmail.com",
         "password": "{\"ciphertext\": \"0fU8YZrMaVk=\", \"nonce\": \"Wy86RMV+1NGBJ0SCSBv++w==\", \"tag\": \"FOBIx8qXKhKA5g5FNxxBeQ==\"}",
@@ -28,5 +22,19 @@
         "email": "paolomwebb@gmail.com",
         "password": "{\"ciphertext\": \"3spyAgfYczpQAA==\", \"nonce\": \"L2aw0wOTBr0eJhFKLyF0DQ==\", \"tag\": \"AIGCE98Gx+T0+EuTLL55Jw==\"}",
         "aes_key": "iCDHvuLYpaT96HV5xCQLKH6eTxLkc1OuZPmkAmPuCck="
+    },
+    {
+        "username": "hmac",
+        "email": "hmac@gmail.com",
+        "password": "{\"ciphertext\": \"S9oGHVmbrCNk\", \"nonce\": \"BUd2xNtUn72w7pY+Fd5MXw==\", \"tag\": \"1axyqeWYFtNdU+1Xo3CjTQ==\"}",
+        "aes_key": "yt0WvQV42LGWjI9VzOrCF4kxJKwh7WB2VUuIwp6HXmA=",
+        "hmac_generado": "8857b49ada71a668ee8a1ca99f47461b50c2fe0941f2e3ee043e25067fb96238"
+    },
+    {
+        "username": "PAPA NOEL",
+        "email": "papanoel@gmail.com",
+        "password": "{\"ciphertext\": \"2fuRQj6VoVIOlOE=\", \"nonce\": \"MD3pW9ObOuSbFAkXeba2sg==\", \"tag\": \"BImXbSdQcyAwYQLt5H5mrw==\"}",
+        "aes_key": "sSIgyIqytXCiulQ4neozh3Cm9IXizrZ1hnQIOU1MdlQ=",
+        "hmac_generado": "3f28a29207e122edd427403c186970a3e559aded5029112a0338e722e7bd2048"
     }
 ]
