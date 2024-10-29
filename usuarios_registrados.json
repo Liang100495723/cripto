@@ -22,5 +22,11 @@
         "email": "holii@gmail.com",
         "password": "{\"ciphertext\": \"A88FN71rddo=\", \"nonce\": \"3/l9VDxhHhrDms9NOmcOkA==\", \"tag\": \"liX7U1xXnVDirqO6Zvmc9g==\"}",
         "aes_key": "zobAteWpmIlEFPRkkus3JSFFLres6fayEs/Ulm9WngA="
+    },
+    {
+        "username": "Paolo",
+        "email": "paolomwebb@gmail.com",
+        "password": "{\"ciphertext\": \"3spyAgfYczpQAA==\", \"nonce\": \"L2aw0wOTBr0eJhFKLyF0DQ==\", \"tag\": \"AIGCE98Gx+T0+EuTLL55Jw==\"}",
+        "aes_key": "iCDHvuLYpaT96HV5xCQLKH6eTxLkc1OuZPmkAmPuCck="
     }
 ]

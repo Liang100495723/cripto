@@ -241,8 +241,8 @@ def leer_cartas():
 
     json_file = 'cartas_usuarios.json'
     if not os.path.exists(json_file):
-        # Si no existe el archivo, renderizar con mensaje de error
-        return render_template('leer_cartas.html', cartas=[], error="No hay cartas disponibles")
+        # Si no existe el archivo, devolver un mensaje de error en JSON
+        return jsonify({"error": "No hay cartas disponibles"}), 404
 
     # Leer y procesar cartas
     with open(json_file, 'r') as file:
@@ -254,7 +254,7 @@ def leer_cartas():
             aes_key_cifrada = carta['aes_key_cifrada']
             aes_key_descifrada = decrypt_rsa(private_key, aes_key_cifrada)
             aes_key_bytes = base64.b64decode(aes_key_descifrada)
-            
+
             carta_cifrada_data = json.loads(carta['carta'])
             ciphertext = base64.b64decode(carta_cifrada_data['ciphertext'])
             nonce = base64.b64decode(carta_cifrada_data['nonce'])
@@ -273,7 +273,7 @@ def leer_cartas():
         except Exception as e:
             print(f"Error al descifrar la carta: {e}")
 
-    # Guardar las cartas descifradas en un archivo JSON y redirigir con ellas
+    # Guardar las cartas descifradas en un archivo JSON
     if cartas_descifradas:
         with open('cartas_descifradas.json', 'w') as output_file:
             json.dump(cartas_descifradas, output_file, indent=4)
@@ -281,8 +281,8 @@ def leer_cartas():
     else:
         print("No se pudieron descifrar las cartas")
 
-    # Renderizar leer_cartas.html con las cartas descifradas
-    return render_template('leer_cartas.html', cartas=cartas_descifradas)
+    # Devolver las cartas descifradas como JSON
+    return jsonify(cartas_descifradas)  # Devolver el JSON
 
 
 

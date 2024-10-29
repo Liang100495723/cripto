@@ -1020,5 +1020,13 @@ footer {
     margin-right: 2vw;
   }
 
+  .cartasContainer {
+            border: 1px solid #ccc; /* Bordes para cada carta */
+            padding: 10px; /* Espaciado interno */
+            margin: 10px; /* Margen entre cartas */
+            border-radius: 5px; /* Bordes redondeados */
+            background-color: #f9f9f9; /* Color de fondo */
+        }
+
 
 }

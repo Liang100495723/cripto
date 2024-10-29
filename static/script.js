@@ -1,16 +1,51 @@
 function SoyPapaNoel(){
-    cartas = document.getElementById("NoSoyPapaNoel");
-    cartas.style.display = "none";
+    const cartasLeer = document.getElementById("NoSoyPapaNoel");
+    cartasLeer.style.display = "none";
 
-    button = document.getElementById("LeerCartas");
+    const button = document.getElementById("LeerCartas");
     button.style.display = "block";
     button.onclick = function(){
         alert("Leyendo cartas...");
         fetch('/leer-cartas-descifradas')
+        .then(response => {
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+        return response.json();
+    })
+    .then(cartas => displayCartas(cartas))
+    .catch(error => console.error('Error:', error));
     };
 }
 
+function displayCartas(cartas) {
+    const cartasContainer = document.getElementById("cartasContainer");
 
+    // Check if cartasContainer exists to avoid errors
+    if (!cartasContainer) {
+        console.warn("cartasContainer not found on this page.");
+        return; // Exit the function if the container doesn't exist
+    }
+
+    cartasContainer.innerHTML = ''; // Clear previous content
+
+    cartas.forEach(carta => {
+        const cartaElement = document.createElement("div");
+        cartaElement.classList.add("carta");
+
+        // Add details of each carta
+        cartaElement.innerHTML = `
+            <strong>Nombre:</strong> ${carta.nombre}<br>
+            <strong>Email:</strong> ${carta.email}<br>
+            <strong>Ciudad:</strong> ${carta.ciudad}<br>
+            <strong>País:</strong> ${carta.pais}<br>
+            <strong>Carta:</strong> ${carta.carta}<br><br>
+        `;
+
+        // Append carta to the container
+        cartasContainer.appendChild(cartaElement);
+    });
+}
 
 
 // Get the pop-up and the register button

@@ -4,27 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cartas Descifradas</title>
+    <style>
+        .carta {
+            border: 1px solid #ccc; /* Bordes para cada carta */
+            padding: 10px; /* Espaciado interno */
+            margin: 10px; /* Margen entre cartas */
+            border-radius: 5px; /* Bordes redondeados */
+            background-color: #f9f9f9; /* Color de fondo */
+        }
+    </style>
 </head>
 <body>
     <h1>Cartas Descifradas</h1>
 
-    {% if error %}
-        <p>{{ error }}</p>
-    {% elif cartas %}
-        <h2>Cartas Descifradas</h2>
-        <ul>
-            {% for carta in cartas %}
-                <li>
-                    <strong>Nombre:</strong> {{ carta['nombre'] }}<br>
-                    <strong>Email:</strong> {{ carta['email'] }}<br>
-                    <strong>Ciudad:</strong> {{ carta['ciudad'] }}<br>
-                    <strong>País:</strong> {{ carta['pais'] }}<br>
-                    <strong>Carta:</strong> {{ carta['carta'] }}<br><br>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hay cartas descifradas disponibles.</p>
-    {% endif %}
+    <!-- Contenedor para las cartas -->
+    <div id="cartasContainer"></div>
+
+    <!-- Asegúrate de que el script.js se cargue al final del body -->
+    <script src="/static/script.js"></script>
+
+    <script>
+        // Cargar cartas al iniciar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/leer-cartas-descifradas')  // Asegúrate de que esta ruta esté correcta
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(cartas => displayCartas(cartas))
+                .catch(error => console.error('Error al cargar cartas:', error));
+        });
+    </script>
 </body>
 </html>
