@@ -139,7 +139,7 @@ def login():
                         # Decodificar la clave AES desde base64
                         aes_key = base64.b64decode(stored_aes_key)
                         decrypted_password = decrypt_aes(aes_key, encrypted_password)  # Desencriptar la contraseña
-                        if decrypted_password == password and verify_hmac(aes_key, decrypted_password, stored_hmac):
+                        if decrypted_password == password and verify_hmac(aes_key, password, stored_hmac):
                             print(f"Algoritmo: HMAC-SHA-256, Longitud de clave: {len(aes_key)*8} bits")
                             print(f"El HMAC es válido")
                             session['username'] = user['username']
