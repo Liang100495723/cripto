@@ -10,21 +10,6 @@ app = Flask(__name__)
 # settings
 app.secret_key = 'mysecretkey'
 
-# Ruta donde se guardará la clave AES
-AES_KEY_FILE = 'aes_key.key'
-
-# Verificar si ya existe la clave AES, sino generarla
-if not os.path.exists(AES_KEY_FILE):
-    aes_key = generate_aes_key()  # Generar la clave AES
-    # Guardar la clave AES en un archivo seguro
-    with open(AES_KEY_FILE, 'wb') as key_file:
-        key_file.write(aes_key)
-else:
-    # Si ya existe, cargar la clave AES del archivo
-    with open(AES_KEY_FILE, 'rb') as key_file:
-        aes_key = key_file.read()
-
-
 # web page
 @app.route('/')
 def index():
@@ -187,6 +172,7 @@ def enviar_carta():
     pais = request.form['pais']
     carta = request.form['carta']
 
+    # Coincidencia de email en la sesión
     if session.get('email') is None or email != session.get('email'):
         return jsonify(success=False, message="Sesión o email no coinciden")
 
@@ -202,8 +188,6 @@ def enviar_carta():
     carta_cifrada = encrypt_aes(aes_key, carta)
     aes_key_cifrada = encrypt_rsa(public_key, base64.b64encode(aes_key).decode())
     
-    
-
     cartas_data = {
         'nombre': nombre,
         'email': email,
@@ -234,7 +218,6 @@ def enviar_carta():
 
     return jsonify(success=True, message="Carta enviada correctamente :)")
 
-# TODO: no se popea las cartas que son descifradas :/
 # Ruta para mostrar la página para subir la clave privada
 @app.route('/leer-cartas')
 def leer_cartas_form():
@@ -258,11 +241,12 @@ def leer_cartas():
     cartas_descifradas = []
     for carta in cartas:
         try:
+            # Descifrar la clave AES con la clave privada de PAPA NOEL
             aes_key_cifrada = carta['aes_key_cifrada']
             aes_key_descifrada = decrypt_rsa(private_key, aes_key_cifrada)
             aes_key_bytes = base64.b64decode(aes_key_descifrada)
 
-            
+            # Descifrar la carta con la clave AES descifrada
             carta_cifrada_data = json.loads(carta['carta'])
             stored_hmac = carta['hmac_generado']
             ciphertext = base64.b64decode(carta_cifrada_data['ciphertext'])
@@ -273,6 +257,7 @@ def leer_cartas():
             cipher = AES.new(aes_key_bytes, AES.MODE_GCM, nonce=nonce)
             carta_descifrada = cipher.decrypt_and_verify(ciphertext, tag).decode('utf-8')
 
+            # La guardamos
             cartas_descifradas.append({
                 'nombre': carta['nombre'],
                 'email': carta['email'],
@@ -301,10 +286,5 @@ def leer_cartas():
     # Devolver las cartas descifradas como JSON
     return jsonify(cartas_descifradas)  # Devolver el JSON
 
-
-
-
-
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
-

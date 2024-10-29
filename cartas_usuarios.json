@@ -25,5 +25,14 @@
         "carta": "{\"ciphertext\": \"ADc2gSogTGVEyHNHlkviEBGR2ym7D6wzd7BESvdw/77/\", \"nonce\": \"yUe+F0+53U///qsuKeAE5Q==\", \"tag\": \"IIskRvpuKIhlNl59BpKS5A==\"}",
         "aes_key_cifrada": "KgXJOFjXw2TFdIJu7GlmQsMeUseAb49JROc3dT7+3B3I1RQJuzcNgyYvDqIGyjscUkH4BLNc2zdS8Om9w+bL+gD1MmZsax+eo7Ln6VB9wm5HptIIjqsz7QFPNG4qWd1wIYgQ0iW75YjYYRk8aB6VpmoDsMazlFKfw2BZc773dOb+Ba8d6a8Dt44JWht5k7qo5HB8HFLm5fhMK7/5XhrQGSv2tOXQTjHGx0qaNDQXs+Bf+ptldBWGMjCElxQCmAFsFRhoauMnCpP2YbEKd8QXs2viMNI0Ze8MQ6g9UgDWwC2TcYegBXM/o77n++t3doQ5xUnckZhpXPfNQbrMrMiK9A==",
         "hmac_generado": "cd96ff9d582f7bf6e741dbc4b6e0a2617122923d1f73fc64b1ed64d36ef6ee83"
+    },
+    {
+        "nombre": "Liang Ji",
+        "email": "www.1159068228@gmail.com",
+        "ciudad": "Mostoles",
+        "pais": "Espa\u00f1a",
+        "carta": "{\"ciphertext\": \"bxgprRGgSo5sf9jxVi+Q0TKGSRvOe+bcPXrGsjD9PBY=\", \"nonce\": \"sdVTMc2PLRt3cqOUm2mwHw==\", \"tag\": \"gtfPNmLr/UhTw34xzLjurg==\"}",
+        "aes_key_cifrada": "nTVd/8MO53bh5yYzCs5HltBEL2KxuUNMwIVgQpB55QkZ3ienhUgG1pqcTpQ3s3cV0tljeJXanwfLcDJzCX1f2k+1QgcLmlbunaAfuNm+80E2xUFNzD1ZaGaTZ3voU1zlyRIpMgv6rG+kN2KXlvy3Q53zPkNh9+uDA5hcvAhWGYn1zc1vFES7zOelColb9LQxcIhZ4Lw1QTjntagcjfIt2Wr0EV84AJrgPELl2LXEXcgZfgjw3+lRZ1ddyRObftAghZc0z2JHvRmwaf08RZLjvUNDPx9cg3qKSPt3PZWhhUkTLZH2uMtH4whm/cc26377T3ynoFLv2dkwlNM5XxsqSg==",
+        "hmac_generado": "18def1dc32c828eeda008c11f6a1588a26cd336870f8eab3dc1446d05c30afcd"
     }
 ]
