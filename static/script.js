@@ -21,19 +21,19 @@ function SoyPapaNoel(){
 function displayCartas(cartas) {
     const cartasContainer = document.getElementById("cartasContainer");
 
-    // Check if cartasContainer exists to avoid errors
+    // Comprueba que existe cartasContainer
     if (!cartasContainer) {
         console.warn("cartasContainer not found on this page.");
-        return; // Exit the function if the container doesn't exist
+        return;
     }
 
-    cartasContainer.innerHTML = ''; // Clear previous content
+    cartasContainer.innerHTML = ''; // Borras lo que había antes
 
     cartas.forEach(carta => {
         const cartaElement = document.createElement("div");
         cartaElement.classList.add("carta");
 
-        // Add details of each carta
+        // Añadimos los detalles de las cartas
         cartaElement.innerHTML = `
             <strong>Nombre:</strong> ${carta.nombre}<br>
             <strong>Email:</strong> ${carta.email}<br>
@@ -42,13 +42,13 @@ function displayCartas(cartas) {
             <strong>Carta:</strong> ${carta.carta}<br><br>
         `;
 
-        // Append carta to the container
+        // Añadimos la carta
         cartasContainer.appendChild(cartaElement);
     });
 }
 
 
-// Get the pop-up and the register button
+// Pop-up y botón de registro
 const registerPopup = document.getElementById("registerPopup");
 const registerBtn = document.getElementById("registerBtn");
 const loginBtn = document.getElementById("loginBtn");
