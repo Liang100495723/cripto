@@ -1,66 +1,38 @@
 [
     {
+        "nombre": "hmac",
+        "email": "hmac@gmail.com",
+        "ciudad": "Madrid",
+        "pais": "Espa\u00f1a",
+        "carta": "{\"ciphertext\": \"QVOS0rrVYdkb3bVWNVZtxqmugHJFDQHcrxDR0J73FlRPxbBMuAUQXoaIKQq49iM5\", \"nonce\": \"eU/jUc/hseCKCjQtt6XkmA==\", \"tag\": \"dWMW0l440w9/YLNcWhDu+A==\"}",
+        "aes_key_cifrada": "DXPh8Qe13pKutyZcRvDqX0gdiV+epaFpX3o7pm8qBd2QlvEeRe9xvsbAYlYNTYTJ1+JhVwgpHlQrkK1YHU024OljJIpvN83m77+G0mBTvbhwHEXli4RDeD0624rLDWuTBqkV86lT1R84HJrTVkP3zGH4VZmHgt70mtf7YRFDe7musCcbR1g4MRDPdnGvbq7lB98+k8x4blR+LWjqytWbC6gjZcSci/5t9FYtuFuhsliMofGnuZ0avLRBZIncD9K6N7HuYK4s4VSwse/rOb6URlJft14h5Oi5c50cXq1h80HLsHky2ytCO79e9CUfJ9yUvr3d7MgeV3yyfMYeoSsZIg==",
+        "hmac_generado": "b85c69d07ef796e0995e2e248b0b48e2c4c5e0087196c7dc372c5d493606f5d8"
+    },
+    {
+        "nombre": "hmac",
+        "email": "hmac@gmail.com",
+        "ciudad": "Madrid",
+        "pais": "Espa\u00f1a",
+        "carta": "{\"ciphertext\": \"ik6q0SqjThRqv6e2QMXIIwXYzrj42sOuYmPKZ0Oqh8qBzAuTif7f2lVhXF+ykXNxcgE=\", \"nonce\": \"QHOUOgeyb+dkjevIFpaj2A==\", \"tag\": \"BxEV/RVbbUu5b4trB+LcoA==\"}",
+        "aes_key_cifrada": "KWVus+0O7dNFj8ygzQua/Q3P1huFj3OJWCkQ4OeCJdHy3npq2L/yZpQCbdkuV9xUdSSnxRO1VV0sg0VBWtnt41d5cCmyaTygPAMEBgZmPDu5wB75G1rYCv5z6V9sfYll/7Oc2pJcSEFiN65m3fKuoE+pBxCqFMYEAcnu8jG8w5ZIeNgWv+zpoSeREIf1P68dQxDCYR2KUmPmvDMww9cnzZ2pzG5XL9QPs/DIYs6Zo6aIce+PDwcvGAs9hqzbqn+XyOi7RWK5v3bnFUzjUcmfnm71WH1lLZSQVUrHWjpP0rYsZhf4IyI6n6DuTMhWFluG0SISVdLG/V6ezm9RyYOEWg==",
+        "hmac_generado": "843ea3ce15e343dea2e026ff380f0ac8bf7f2e5e34675c100a1bf1174e9706be"
+    },
+    {
+        "nombre": "hmac",
+        "email": "hmac@gmail.com",
+        "ciudad": "Madrid",
+        "pais": "Espa\u00f1a",
+        "carta": "{\"ciphertext\": \"ADc2gSogTGVEyHNHlkviEBGR2ym7D6wzd7BESvdw/77/\", \"nonce\": \"yUe+F0+53U///qsuKeAE5Q==\", \"tag\": \"IIskRvpuKIhlNl59BpKS5A==\"}",
+        "aes_key_cifrada": "KgXJOFjXw2TFdIJu7GlmQsMeUseAb49JROc3dT7+3B3I1RQJuzcNgyYvDqIGyjscUkH4BLNc2zdS8Om9w+bL+gD1MmZsax+eo7Ln6VB9wm5HptIIjqsz7QFPNG4qWd1wIYgQ0iW75YjYYRk8aB6VpmoDsMazlFKfw2BZc773dOb+Ba8d6a8Dt44JWht5k7qo5HB8HFLm5fhMK7/5XhrQGSv2tOXQTjHGx0qaNDQXs+Bf+ptldBWGMjCElxQCmAFsFRhoauMnCpP2YbEKd8QXs2viMNI0Ze8MQ6g9UgDWwC2TcYegBXM/o77n++t3doQ5xUnckZhpXPfNQbrMrMiK9A==",
+        "hmac_generado": "cd96ff9d582f7bf6e741dbc4b6e0a2617122923d1f73fc64b1ed64d36ef6ee83"
+    },
+    {
         "nombre": "Liang Ji",
         "email": "www.1159068228@gmail.com",
         "ciudad": "Mostoles",
-        "pais": "\u897f\u73ed\u7259",
-        "carta": "{\"ciphertext\": \"1yD13WBpScmZ3YoBmzsuu7xy/pHP/LMfbPHw8LFkkw1q0Us7qUdgK6e/M/o=\", \"nonce\": \"UcDNTpA0oLlWj8dcbfN/0A==\", \"tag\": \"7vwnVKfpYBl2o/6kqLaAyA==\"}",
-        "aes_key_cifrada": "Goe+7HJoWkYvo8C3mo38HfI358fq7eLH3ZE9UfTwJhF6Fq1CdE/Hmjrw/J1FSm2qli7z6E6fB2hNBBB5/pm2Em5r2xjX6hIh1WuhWy+Yztp+6AivHVvaI7th9mNVMDPHTYdJNQL5DnYzULbhTm+emJCBPEORWCaCsYc9nsgmen7x5N2Fkkf4vLK6g78/Zq3gV+OS/kws//UjYYVci6NvCGtMIKAgYa7Ge74y3+T/Y3oitM7n8+TbL93+GlAwFZBV0W8CTGr1+cfIb9RTy495b01Fv5UeCG27jZmpl7Ox/hJ7J7TluFNk81aMbnxreY/X7XunMbe8H9a3u87WRpKwgQ=="
-    },
-    {
-        "nombre": "Liang Ji",
-        "email": "www.1159068228@gmail.com",
-        "ciudad": "Mostoles",
-        "pais": "\u897f\u73ed\u7259",
-        "carta": "{\"ciphertext\": \"xETZfuoXGgmvBDYFt6SQtZw8142hYtWAJND7L6FSzWs7w2ut3Ra0SHdTgwMjWTKSo6/fAMZ/VImn77zlJQ==\", \"nonce\": \"5QE7YUMCI5OTjmfbGTYLJQ==\", \"tag\": \"sgLcAPy0w2rz6Wzkq2fgBQ==\"}",
-        "aes_key_cifrada": "E8owqTMY6mlFGLf0aTRbkGmpf8qGvSZX2189GEoxTtYENMBpHXeYVxPbbDSmH+2t+r4G5W9yxDhMQWWZgSJoQaMV/oxRptuWjgHRP0DLsfJ+/0uSLvrU4p9brAcv+7hTpBokKXF5HSC5iyn7C1wSzbBJlb3x6Jha1p1L/8m5JkdQbML6r24IH4ajLNz8dBsrIjS8DcsQqvob+K5i9efMGOgXRk4vFntYE9pLqDOzH+nrPq25G/JUBeovV1/zMWNokb68iLriTfVNHu8jztXZWYkpF50ZnYlTGG9UTI59yC64GuRyYU0GGm9qrMvWnO4xCr+34017e8X/yvp9OkKycA=="
-    },
-    {
-        "nombre": "Victoria",
-        "email": "vickyy@gmail.com",
-        "ciudad": "Madrid",
         "pais": "Espa\u00f1a",
-        "carta": "{\"ciphertext\": \"aPUtfER3Xc939KRb4kAHKlVmzNSMzcdgVbfAwBD8\", \"nonce\": \"+734/Q1BAz0T9I941E72uA==\", \"tag\": \"4mDIDhhZB2AQjJIZUP7EpA==\"}",
-        "aes_key_cifrada": "Qs3vPTPJJTNge0yWcGormg6nJQPu//Znk/pz4+AoJD5KRiymVOG9bg7v0jNFDMSvMZWxysZma2xWxXkyKr5hnvXFFmsfQOIXGFpnNEw6FcQAXCzGs+Q8XJXmD+qy7hPPcVnPeHOeytsNXj9GI2NdC3nWw1TJ7MBgsBxF7srGBQ1Cb/OJLb0pij/sGb2s3h77m2f4HP9QI2pkGgVktJhPDb7NNZhETgVnk5WPkGbJH/gJB52emejWeaFicXWE32/z0ei39/DRzQO/6v6Iiv8QE+nI5zeMhOufpj5BrrFvHyVmXNL5u7k4MoIpfQm6nzuzYZQmZBIYMBo1uUn2vusXRw=="
-    },
-    {
-        "nombre": "Hola",
-        "email": "holii@gmail.com",
-        "ciudad": "Madrid",
-        "pais": "Espa\u00f1a",
-        "carta": "{\"ciphertext\": \"ujkmy+eRvbYiQalTU+CTTAmKTo2fXzifNu3hNg==\", \"nonce\": \"hnnGZdPft2KvK4o2alAPuA==\", \"tag\": \"5bkFQMPVZUuPs/9HDfVxxQ==\"}",
-        "aes_key_cifrada": "VMDlTsFDeKl15eoz/ibtg8YT7mOcjuvcmmxlgwx5E4mr3wzKHl1mlmk1wV5UZBBEotYFK8leoLt2Pfk11eQui1Vkvaur9FBfGtlBMeuOBf8I87vbk/4I0hlLqUC0wmVtlHIhAd31hoaYLzA4U0jhOgcvDdDglKLNMiAhkaoqEsS0RUFjTM3I/efg7YCgq+0iO/2g1prjxxLYuYC3HjrO+rTq+VPcjWwQtbQXUm/xbr3NBqAFxSX+3s/7X3MIhXTm4U2AMi4DZK8opkBWXzurVxy7+2m88q56GSc5lELqxrx3xeNNP2ld4c/BQRKcy8rxCJsxoDdHN2xWVeIegovCCQ=="
-    },
-    {
-        "nombre": "Hola",
-        "email": "holii@gmail.com",
-        "ciudad": "Madrid",
-        "pais": "Espa\u00f1a",
-        "carta": "{\"ciphertext\": \"Drd807QucWYuZq0oLiDW6jvZjPw0/COjL1d7Sw==\", \"nonce\": \"LY2VTNfLVBNlbVNupVvjpw==\", \"tag\": \"l7wPNU3BW0u2WA0mL7eR4g==\"}",
-        "aes_key_cifrada": "hEi2DRdZVBaX/OpR5i2/xugB9O812pVVxzl18stJrG2AuNpyxp1B2f+bGjgtnL9G9a1bd1xXsjlaUPwFr7W8j/qMx/SY/0ixOYf+4NMuki+oiSJe+LbnxaHL6SZ4dnuNgrrsp9DOsnIBXdphwK9IM2WsIzyzKApVKIyrAIWQ/W8Si0QdkTr6Is5D0DLEIa2TqugqoDIbbca2wWKjNPolYBbZhdiSvtNzsMqvXnZ/r6nbS6pDyZSI6yziTyn25vQY9jWZVZNE1BzZc5e4b3a/+m/i1uWe8V6rrY3Ej6y+bWMvG6UzC9auXjCjIlHD9UdgAZbE6QYesDPxil46g/F8qQ=="
-    },
-    {
-        "nombre": "Hola",
-        "email": "holii@gmail.com",
-        "ciudad": "Madrid",
-        "pais": "Espa\u00f1a",
-        "carta": "{\"ciphertext\": \"/goRo025jeNV3hjbf8BHpJ3+/kzeNcMNGKvrpQ==\", \"nonce\": \"Y7nnlteI0XS4VJkOwT2ojA==\", \"tag\": \"jghxTu6Fn/PQ5FnrFY0Fxg==\"}",
-        "aes_key_cifrada": "O9zMYZNO/CJB8y4UOIb4gnSF1HUiUpNOoNMI28gtQuToXJaXfAC2lvQeyTtyRdcxn8Z3vb/C2wxDv+z3+ZhlznLQZnA9jc/I4WsQxi8pS4fCk7Xb78KscV8dshOqnMk+uYtXxemyJ6CWE7CK9AJkVtp2NtqKJVimy/rioygvxrXtPjyk0LsKma5x4B3MGgo8/O9Vz0rvo+P7eg6DoY6mtvCQTBPyMMnnP2B408PO4szyU8bwS2Wh0t6cssnTRfXALqkibYOqqi5HyIlPg5Oig1SXVNRuLF5/OLDbd67M+Vdow0h1jN4aHY+oTr8VrtcwmWlFIRizhZh6EAwNsP8qBA=="
-    },
-    {
-        "nombre": "Hola",
-        "email": "holii@gmail.com",
-        "ciudad": "Madrid",
-        "pais": "Espa\u00f1a",
-        "carta": "{\"ciphertext\": \"jMEg62/G8mmFiIRcVKFkthO163nwB5gC7GXVkA==\", \"nonce\": \"xjvpqrjkK0msIvOMmrDlTg==\", \"tag\": \"uhmhS1GCySJs12T32SnB1g==\"}",
-        "aes_key_cifrada": "L5J3xHsLV73DSwqXTqbKq8Bal2hrKDldbyRRaikeUaFCcyLgXLJNstyxKGuz91CULgMs0GI+valHu+l/pK6w57WuE3p+FSUbc91EysF3DEsIc9FzArTtJey4xpepUiQWrYo67miCdw7bIcK2pIFu7GRdOsp4lA4DvcAu4bnVD86nlOCac5uZ9GSJADVE958wVyXvRSCviuyeKpHPS0b7b59ThrUlH0JM9HdUGt14Xw+kH5TRSygiU3xLuLtjScWvv9MecJ2BhHAWM593/VEfi4wuxmiFHconAQ1A15yHnH6ocbWimqlCZguHjVC/Nb1ao8F+vjc+xCTLwGCk3sjxkA=="
-    },
-    {
-        "nombre": "Paolo",
-        "email": "paolomwebb@gmail.com",
-        "ciudad": "Villamart\u00edn",
-        "pais": "Espa\u00f1a",
-        "carta": "{\"ciphertext\": \"uCAaB4Ysq6c6JjCurzbyvHjfu4Qi5on3zUhgI43vJ7ejQH2ZtA==\", \"nonce\": \"avk8GFG4kvpv68cFyuzNHw==\", \"tag\": \"t6Ee4pyya19hfNhqwFJqyw==\"}",
-        "aes_key_cifrada": "UXcqImO9Qe8M+Kd2XNUreZSybfT2MSW7Mz9oB2kmDdz/ROD+kH2j23+SfcCkNNZHlqq5bVe4raSsn2QpaoDRqXUy0OMOo62H7/VRUS1tlpANqPlEw1GCAwc8/KhOmo9na4951ihvS/YpmA9onU7osT/4emLmFAPn8s9WQ7LLIGTP/OdbYT4vtVOSzY30SVFCnTjenqpxv9xEUtCoX9Ql82hqbRVDwalBJmxjnWPrTR8dJfsVAv5qifSyx9oASUXRQo7aPwljjBM2tdstWB8no8l/OnUNNG9D1639KsAjLZqvsZgutEX2J0mfIU0wldocSWVkVYKb51fy2smr6tECnw=="
+        "carta": "{\"ciphertext\": \"bxgprRGgSo5sf9jxVi+Q0TKGSRvOe+bcPXrGsjD9PBY=\", \"nonce\": \"sdVTMc2PLRt3cqOUm2mwHw==\", \"tag\": \"gtfPNmLr/UhTw34xzLjurg==\"}",
+        "aes_key_cifrada": "nTVd/8MO53bh5yYzCs5HltBEL2KxuUNMwIVgQpB55QkZ3ienhUgG1pqcTpQ3s3cV0tljeJXanwfLcDJzCX1f2k+1QgcLmlbunaAfuNm+80E2xUFNzD1ZaGaTZ3voU1zlyRIpMgv6rG+kN2KXlvy3Q53zPkNh9+uDA5hcvAhWGYn1zc1vFES7zOelColb9LQxcIhZ4Lw1QTjntagcjfIt2Wr0EV84AJrgPELl2LXEXcgZfgjw3+lRZ1ddyRObftAghZc0z2JHvRmwaf08RZLjvUNDPx9cg3qKSPt3PZWhhUkTLZH2uMtH4whm/cc26377T3ynoFLv2dkwlNM5XxsqSg==",
+        "hmac_generado": "18def1dc32c828eeda008c11f6a1588a26cd336870f8eab3dc1446d05c30afcd"
     }
 ]

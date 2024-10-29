@@ -10,21 +10,6 @@ app = Flask(__name__)
 # settings
 app.secret_key = 'mysecretkey'
 
-# Ruta donde se guardará la clave AES
-AES_KEY_FILE = 'aes_key.key'
-
-# Verificar si ya existe la clave AES, sino generarla
-if not os.path.exists(AES_KEY_FILE):
-    aes_key = generate_aes_key()  # Generar la clave AES
-    # Guardar la clave AES en un archivo seguro
-    with open(AES_KEY_FILE, 'wb') as key_file:
-        key_file.write(aes_key)
-else:
-    # Si ya existe, cargar la clave AES del archivo
-    with open(AES_KEY_FILE, 'rb') as key_file:
-        aes_key = key_file.read()
-
-
 # web page
 @app.route('/')
 def index():
@@ -57,10 +42,10 @@ def register():
         # Generar la clave AES y encriptar la contraseña
         aes_key = generate_aes_key()  # Genera una clave AES única por usuario
         encrypted_password = encrypt_aes(aes_key, password)  # Encriptar la contraseña
-        hmac_generado = generate_hmac(password, aes_key)
+        hmac_generado = generate_hmac(aes_key, password)
         print(f"MAC generado: {hmac_generado}")
         print(f"Algoritmo: HMAC-SHA-256, Longitud de clave: {len(aes_key)*8} bits")
-        es_valido = verify_hmac(password, aes_key, hmac_generado)
+        es_valido = verify_hmac(aes_key, password, hmac_generado)
         print(f"El HMAC es válido: {'Sí' if es_valido else 'No'}")
 
         # Archivo json
@@ -83,7 +68,8 @@ def register():
             'username': username,
             'email': email,
             'password': encrypted_password,
-            'aes_key': base64.b64encode(aes_key).decode('utf-8')  # Guardar la clave AES en formato base64
+            'aes_key': base64.b64encode(aes_key).decode('utf-8'),  # Guardar la clave AES en formato base64
+            'hmac_generado': hmac_generado
         }
 
         # Verificar si el archivo existe
@@ -128,6 +114,7 @@ def login():
             # Validar usuario o email con la contraseña
             for user in users:
                 if user['username'] == username_or_email or user['email'] == username_or_email:
+                    stored_hmac = user.get('hmac_generado')
                     encrypted_password = user.get('password')
                     stored_aes_key = user.get('aes_key')
                     if not encrypted_password or not stored_aes_key:
@@ -137,7 +124,9 @@ def login():
                         # Decodificar la clave AES desde base64
                         aes_key = base64.b64decode(stored_aes_key)
                         decrypted_password = decrypt_aes(aes_key, encrypted_password)  # Desencriptar la contraseña
-                        if decrypted_password == password:
+                        if decrypted_password == password and verify_hmac(aes_key, password, stored_hmac):
+                            print(f"Algoritmo: HMAC-SHA-256, Longitud de clave: {len(aes_key)*8} bits")
+                            print(f"El HMAC es válido")
                             session['username'] = user['username']
                             session['email'] = user['email'] #Guardamos el email para enviar lo de la carta
                             session['aes_key'] = user['aes_key']
@@ -183,28 +172,30 @@ def enviar_carta():
     pais = request.form['pais']
     carta = request.form['carta']
 
+    # Coincidencia de email en la sesión
     if session.get('email') is None or email != session.get('email'):
         return jsonify(success=False, message="Sesión o email no coinciden")
 
     public_key = load_public_key()
     aes_key = base64.b64decode(session['aes_key'])
-    hmac_generado = generate_hmac(carta, aes_key)
+    print(f"Clave usada para generar el hmac: {aes_key}")
+    print(f"Carta: {carta}")
+    hmac_generado = generate_hmac(aes_key, carta)
     print(f"HMAC generado: {hmac_generado}")
-    print(f"Algoritmo: HMAC-SHA-256, Longitud de clave: {len(session['aes_key'])*8} bits")
-    es_valido = verify_hmac(carta, aes_key, hmac_generado)
-    print(f"El HMAC es válido: {'Sí' if es_valido else 'No'}")
+    print(f"Algoritmo: HMAC-SHA-256, Longitud de clave: {len(aes_key)*8} bits")
+    #es_valido = verify_hmac(carta, aes_key, hmac_generado)
+    #print(f"El HMAC es válido: {'Sí' if es_valido else 'No'}")
     carta_cifrada = encrypt_aes(aes_key, carta)
     aes_key_cifrada = encrypt_rsa(public_key, base64.b64encode(aes_key).decode())
     
-    
-
     cartas_data = {
         'nombre': nombre,
         'email': email,
         'ciudad': ciudad,
         'pais': pais,
         'carta': carta_cifrada,
-        'aes_key_cifrada': aes_key_cifrada
+        'aes_key_cifrada': aes_key_cifrada,
+        'hmac_generado': hmac_generado
     }
 
     json_file = 'cartas_usuarios.json'
@@ -227,7 +218,6 @@ def enviar_carta():
 
     return jsonify(success=True, message="Carta enviada correctamente :)")
 
-# TODO: no se popea las cartas que son descifradas :/
 # Ruta para mostrar la página para subir la clave privada
 @app.route('/leer-cartas')
 def leer_cartas_form():
@@ -251,18 +241,23 @@ def leer_cartas():
     cartas_descifradas = []
     for carta in cartas:
         try:
+            # Descifrar la clave AES con la clave privada de PAPA NOEL
             aes_key_cifrada = carta['aes_key_cifrada']
             aes_key_descifrada = decrypt_rsa(private_key, aes_key_cifrada)
             aes_key_bytes = base64.b64decode(aes_key_descifrada)
 
+            # Descifrar la carta con la clave AES descifrada
             carta_cifrada_data = json.loads(carta['carta'])
+            stored_hmac = carta['hmac_generado']
             ciphertext = base64.b64decode(carta_cifrada_data['ciphertext'])
+            
             nonce = base64.b64decode(carta_cifrada_data['nonce'])
             tag = base64.b64decode(carta_cifrada_data['tag'])
 
             cipher = AES.new(aes_key_bytes, AES.MODE_GCM, nonce=nonce)
             carta_descifrada = cipher.decrypt_and_verify(ciphertext, tag).decode('utf-8')
 
+            # La guardamos
             cartas_descifradas.append({
                 'nombre': carta['nombre'],
                 'email': carta['email'],
@@ -270,6 +265,13 @@ def leer_cartas():
                 'pais': carta['pais'],
                 'carta': carta_descifrada
             })
+
+            if not verify_hmac(aes_key_bytes, carta_descifrada, stored_hmac):
+                print(f"El HMAC no puede verificarse. Es posible que la carta haya sido alterada")
+            else:
+                print(f"Algoritmo: HMAC-SHA-256, Longitud de clave: {len(aes_key_bytes)*8} bits")
+                print(f"El HMAC es válido")
+
         except Exception as e:
             print(f"Error al descifrar la carta: {e}")
 
@@ -284,10 +286,5 @@ def leer_cartas():
     # Devolver las cartas descifradas como JSON
     return jsonify(cartas_descifradas)  # Devolver el JSON
 
-
-
-
-
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
-

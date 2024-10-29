@@ -1,4 +1,5 @@
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.backends import default_backend
@@ -84,10 +85,34 @@ def load_private_key_from_file(file_path):
     return private_key
 
 # HMAC for Authentication
-def generate_hmac(secret_key, message):
-    h = hmac.new(secret_key.encode(), message, hashlib.sha256)
+#def generate_hmac(secret_key, message):
+#    h = hmac.new(secret_key.encode(), message, hashlib.sha256)
+#    return h.hexdigest()
+
+#def verify_hmac(secret_key, message, received_hmac):
+#    generated_hmac = generate_hmac(secret_key, message)
+#    return hmac.compare_digest(generated_hmac, received_hmac)
+
+def derive_hmac_key(aes_key):
+    hkdf = HKDF(
+        algorithm=hashes.SHA256(),
+        length=32,  # Tamaño de la clave HMAC
+        salt=None,  # Opcional, pero usar un salt sería más seguro
+        info=b"hmac-key-derivation",  # Contexto para la derivación de clave
+        backend=default_backend()
+    )
+    hmac_key = hkdf.derive(aes_key)
+    return hmac_key
+
+# Función para generar HMAC
+def generate_hmac(aes_key, message):
+    hmac_key = derive_hmac_key(aes_key)  # Derivación de la clave HMAC
+    if isinstance(message, str):  
+        message = message.encode()
+    h = hmac.new(hmac_key, message, hashlib.sha256)
     return h.hexdigest()
 
-def verify_hmac(secret_key, message, received_hmac):
-    generated_hmac = generate_hmac(secret_key, message)
+# Función para verificar HMAC
+def verify_hmac(aes_key, message, received_hmac):
+    generated_hmac = generate_hmac(aes_key, message)
     return hmac.compare_digest(generated_hmac, received_hmac)
