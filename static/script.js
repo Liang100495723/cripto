@@ -309,9 +309,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Mostrar éxito al usuario
             console.log('Carta enviada con éxito:', data);
             alert('Carta enviada correctamente');
-                
+
             }
-            
+
         })
         .catch(error => {
             console.error('Error:', error);
