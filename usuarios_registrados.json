@@ -19,5 +19,12 @@
         "password": "{\"ciphertext\": \"AxPld8Uj7Iee\", \"nonce\": \"iD1uXA90vU29azVhUes8wA==\", \"tag\": \"Q+PcpH7R8HAXfZhMBRrIqg==\"}",
         "aes_key": "zB5y76xCsmdR2tLuLRwfeicntbK0t51gjrZGhJFoUB8=",
         "hmac_generado": "88d9cdd029596fc0d15b88b62802a5037e1dc0b2502b20d6d9f9868c7cefd539"
+    },
+    {
+        "username": "Paolo",
+        "email": "paolomwebb@gmail.com",
+        "password": "{\"ciphertext\": \"NYUI9qzSmKW7sw==\", \"nonce\": \"AgGx7nex/p6dROKyHtabCg==\", \"tag\": \"cHS88FXUBgtk4OrkJLCEjg==\"}",
+        "aes_key": "Z8D4hb9QukFp+9F+XZeZZR52g0JdEXtJP0luQoUmRfk=",
+        "hmac_generado": "e05eb113d6e33db97cc74d8b4dbbe6c26e261b44d62c7f34cfa4ef5756fe9a17"
     }
 ]
